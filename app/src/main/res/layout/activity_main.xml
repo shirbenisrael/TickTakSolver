@@ -1,0 +1,308 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.ticktacksolver.MainActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/easyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onEasyButtonClick"
+            android:text="@string/Easy" />
+
+        <Button
+            android:id="@+id/hardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onHardButtonClick"
+            android:text="@string/Hard" />
+
+        <Button
+            android:id="@+id/manualButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onManualButtonClick"
+            android:text="@string/Manual" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Chronometer
+            android:id="@+id/chronometer1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:visibility="invisible"
+            android:textSize="@dimen/ChronometerSize" />
+
+        <LinearLayout
+            android:id="@+id/sourcesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/editText1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/SourceNumber"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/editText2" >
+                </EditText>
+
+                <EditText
+                    android:id="@+id/editText2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/SourceNumber"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/editText3" >
+                </EditText>
+
+                <EditText
+                    android:id="@+id/editText3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/SourceNumber"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/editText4" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/editText4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/SourceNumber"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/editText5" >
+                </EditText>
+
+                <EditText
+                    android:id="@+id/editText5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/SourceNumber"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/editText6" >
+                </EditText>
+
+                <EditText
+                    android:id="@+id/editText6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/SourceNumber"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/target" >
+                </EditText>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/target"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="12"
+        android:hint="@string/TagertNumber"
+        android:inputType="number"
+        android:textColor="@color/lime"
+        android:textColorHint="@color/yellow" >
+    </EditText>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/tryAloneButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onTryAloneButtonClick"
+            android:text="@string/TryAlone" />
+
+        <Button
+            android:id="@+id/cancelLastMoveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:onClick="onCancelLastMoveClick"
+            android:text="@string/CancelLastMove" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tryAloneFields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="invisible" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/tryAlone1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onTryAloneOperandClick"
+                android:text="@string/Calculate" />
+
+            <Button
+                android:id="@+id/tryAlone2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onTryAloneOperandClick"
+                android:text="@string/Calculate" />
+
+            <Button
+                android:id="@+id/tryAlone3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onTryAloneOperandClick"
+                android:text="@string/Calculate" />
+
+            <Button
+                android:id="@+id/tryAlone4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onTryAloneOperandClick"
+                android:text="@string/Calculate" />
+
+            <Button
+                android:id="@+id/tryAlone5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onTryAloneOperandClick"
+                android:text="@string/Calculate" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/tryAlone6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onTryAloneOperandClick"
+                android:text="@string/Calculate" />
+
+            <Button
+                android:id="@+id/tryAlonePlus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onTryAloneOperatorClick"
+                android:text="@string/Plus" />
+
+            <Button
+                android:id="@+id/tryAloneMinus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onTryAloneOperatorClick"
+                android:text="@string/Minus" />
+
+            <Button
+                android:id="@+id/tryAloneMult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onTryAloneOperatorClick"
+                android:text="@string/Mult" />
+
+            <Button
+                android:id="@+id/tryAloneDiv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onTryAloneOperatorClick"
+                android:text="@string/Div" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/EquationResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world"
+        android:textColor="@color/lime"
+        android:textIsSelectable="true"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/partResult1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/partResult2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/partResult3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/partResult4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/partResult5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/calculateButtonOneThread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onCalculateButtonClick"
+            android:text="@string/Calculate" />
+
+        <Button
+            android:id="@+id/cleanButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onCleanButtonClick"
+            android:text="@string/Clean" />
+    </LinearLayout>
+
+</LinearLayout>
