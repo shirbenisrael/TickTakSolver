@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">תיק תק</string>
+    <string name="hello_world">ברוך הבא לפותר המשוואות :-)</string>    
+    <string name="Calculate">מצא פתרון</string>
+    <string name="TryAlone">נסה לבד</string>
+    <string name="CancelLastMove">בטל צעד אחרון</string>
+    <string name="TargetNumber">מספר היעד</string>
+    <string name="SourceNumber">מספר מקור</string>
+    <string name="Clean">נקה הכל</string>
+    <string name="Easy">קל</string>
+    <string name="Hard">קשה</string>
+    <string name="Manual">ידני</string>
+    <string name="WinMessage">כל הכבוד!</string>
+    <string name="action_settings">Settings</string>
+    <string name="ShowStopper">שעון עצר</string>
+
+</resources>
