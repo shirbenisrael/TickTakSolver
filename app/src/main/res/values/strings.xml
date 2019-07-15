@@ -19,5 +19,6 @@
     <string name="WinMessage">כל הכבוד!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="ShowStopper">שעון עצר</string>
 
 </resources>

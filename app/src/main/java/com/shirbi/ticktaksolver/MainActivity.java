@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -132,7 +133,10 @@ public class MainActivity extends Activity {
 					myTextView.setTextColor(getResources().getColor(R.color.red));
 										
 				}
-				
+
+				Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
+				chronometer.setVisibility(View.VISIBLE);
+
 				stopClock();
 			}
 		}
@@ -392,18 +396,28 @@ public class MainActivity extends Activity {
 	private void showSourcesAndHideClock( boolean isSourcesShow)
 	{
 		View sourcesFields = findViewById(R.id.sourcesLayout);
-		Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
-		
+		Chronometer chronometer = (Chronometer)findViewById(R.id.chronometer1);
+		CheckBox checkBox = (CheckBox) findViewById(R.id.ShowStopper);
 		if ( isSourcesShow )
 		{			
 			sourcesFields.setVisibility(View.VISIBLE);
 			chronometer.setVisibility(View.INVISIBLE);
+			checkBox.setVisibility(View.INVISIBLE);
 		}
 		else
 		{	
-			chronometer.setVisibility(View.VISIBLE);
-			sourcesFields.setVisibility(View.INVISIBLE);			
+			chronometer.setVisibility(checkBox.isChecked() ? View.VISIBLE : View.INVISIBLE);
+			checkBox.setVisibility(View.VISIBLE);
+			sourcesFields.setVisibility(View.INVISIBLE);
 		}
+	}
+
+	public void onShowStopperClicked( View view)
+	{
+		CheckBox checkBox = (CheckBox) findViewById(R.id.ShowStopper);
+		Chronometer chronometer = (Chronometer)findViewById(R.id.chronometer1);
+
+		chronometer.setVisibility(checkBox.isChecked() ? View.VISIBLE : View.INVISIBLE);
 	}
 	
 	public void onCleanButtonClick( View view)
