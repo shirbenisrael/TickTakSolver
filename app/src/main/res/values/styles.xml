@@ -11,7 +11,7 @@
 
 
 
-    <style name="AppBaseTheme" parent="android:Theme.Black"/>
+    <style name="AppBaseTheme" parent="android:Theme.Black.NoTitleBar"/>
 
     <!-- Application theme. -->
 
