@@ -8,8 +8,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.view.Display;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -630,17 +628,5 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	private MessageHandler handler = new MessageHandler( this );			
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		return super.onOptionsItemSelected(item);
-	}
+	private MessageHandler handler = new MessageHandler( this );
 }
