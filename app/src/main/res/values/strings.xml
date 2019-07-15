@@ -10,7 +10,7 @@
     <string name="Div">/</string>
     <string name="TryAlone">נסה לבד</string>
     <string name="CancelLastMove">בטל צעד אחרון</string>
-    <string name="TagertNumber">מספר היעד</string>
+    <string name="TargetNumber">מספר היעד</string>
     <string name="SourceNumber">מספר מקור</string>
     <string name="Clean">נקה הכל</string>
     <string name="Easy">קל</string>

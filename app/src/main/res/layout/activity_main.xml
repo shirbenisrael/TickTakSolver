@@ -129,7 +129,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="12"
-        android:hint="@string/TagertNumber"
+        android:hint="@string/TargetNumber"
         android:inputType="number"
         android:textColor="@color/lime">
     </EditText>
