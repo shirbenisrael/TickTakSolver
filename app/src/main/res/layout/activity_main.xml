@@ -131,8 +131,7 @@
         android:ems="12"
         android:hint="@string/TagertNumber"
         android:inputType="number"
-        android:textColor="@color/lime"
-        android:textColorHint="@color/yellow" >
+        android:textColor="@color/lime">
     </EditText>
 
     <LinearLayout
