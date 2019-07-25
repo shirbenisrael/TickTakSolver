@@ -2,11 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shirbi.ticktaksolver" >
 
-    <application
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application>
+        <!-- make sure within the application tag, otherwise app will crash with XmlResourceParser errors -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.shirbi.ticktacksolver"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileprovider" />
+        </provider>
+
         android:allowBackup="true"
         android:icon="@drawable/ticktack_solver_icon"
-        android:label="@string/app_name" >
-        <activity            
+        android:label="@string/app_name"
+
+        <activity
             android:theme="@style/AppBaseTheme"
             android:name=".MainActivity"
             android:label="@string/app_name" >

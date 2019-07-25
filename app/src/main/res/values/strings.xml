@@ -19,5 +19,6 @@
     <string name="WinMessage">Congratulations!</string>
     <string name="action_settings">Settings</string>
     <string name="ShowStopper">Stopper</string>
+    <string name="Share">Share</string>
 
 </resources>

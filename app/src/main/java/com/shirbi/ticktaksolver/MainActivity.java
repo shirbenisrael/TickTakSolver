@@ -10,6 +10,7 @@ import android.os.SystemClock;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,10 +20,13 @@ import android.widget.TextView;
 
 import com.shirbi.ticktaksolver.TicktackSolver.MessageType;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.Random;
 
 public class MainActivity extends Activity {
+
+	private static final String TAG = "ticktacksolver";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +140,9 @@ public class MainActivity extends Activity {
 
 				Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
 				chronometer.setVisibility(View.VISIBLE);
+
+				View shareButton = (View) findViewById(R.id.shareButton);
+				shareButton.setVisibility(View.VISIBLE);
 
 				stopClock();
 			}
@@ -388,6 +395,9 @@ public class MainActivity extends Activity {
 		mSolveAlone = new SolveAlone(mValues, mTarget);
 		
 		Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
+
+		View shareButton = (View) findViewById(R.id.shareButton);
+		shareButton.setVisibility(View.INVISIBLE);
 		
 		chronometer.setBase(SystemClock.elapsedRealtime());
 		chronometer.start();
@@ -398,17 +408,21 @@ public class MainActivity extends Activity {
 		View sourcesFields = findViewById(R.id.sourcesLayout);
 		Chronometer chronometer = (Chronometer)findViewById(R.id.chronometer1);
 		CheckBox checkBox = (CheckBox) findViewById(R.id.ShowStopper);
+		View shareButton = (View) findViewById(R.id.shareButton);
+
 		if ( isSourcesShow )
 		{			
 			sourcesFields.setVisibility(View.VISIBLE);
 			chronometer.setVisibility(View.INVISIBLE);
 			checkBox.setVisibility(View.INVISIBLE);
+			shareButton.setVisibility(View.INVISIBLE);
 		}
 		else
 		{	
 			chronometer.setVisibility(checkBox.isChecked() ? View.VISIBLE : View.INVISIBLE);
 			checkBox.setVisibility(View.VISIBLE);
 			sourcesFields.setVisibility(View.INVISIBLE);
+			shareButton.setVisibility(View.INVISIBLE);
 		}
 	}
 
@@ -419,7 +433,7 @@ public class MainActivity extends Activity {
 
 		chronometer.setVisibility(checkBox.isChecked() ? View.VISIBLE : View.INVISIBLE);
 	}
-	
+
 	public void onCleanButtonClick( View view)
 	{
 		for ( int i = 0 ;i < sources.length ; i ++)
@@ -591,7 +605,7 @@ public class MainActivity extends Activity {
 			String string = bundle.getString("myKey");
 			
 			MessageType messageType =  MessageType.values()[bundle.getInt("otherKey")];
-			  
+
 			MainActivity activity = mMainActivity.get();
 			
 			TextView myTextView = 
@@ -640,6 +654,38 @@ public class MainActivity extends Activity {
 				}
 			}
 		}
+	}
+
+	private static final int REQUEST_WRITE_STORAGE = 112;
+	private static final int REQUEST_READ_STORAGE = 3;
+
+	MainActivity m_activity;
+
+	int m_views_to_hide_for_share[] = { R.id.levelLayout, R.id.startPlayLayout, R.id.tryAloneFields,
+            R.id.bottomButtonsLayout, R.id.shareButton, R.id.ShowStopper};
+
+	public void onShareButtonClick(View button) throws IOException {
+		for (int id : m_views_to_hide_for_share) {
+			findViewById(id).setVisibility(View.GONE);
+		}
+
+		m_activity = this;
+		final View view = findViewById(R.id.fullWindow);
+		ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
+
+		viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+			public void onGlobalLayout() {
+				ShareImage shareImage = new ShareImage(m_activity);
+				shareImage.shareView(view);
+
+				view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+				for (int id : m_views_to_hide_for_share) {
+					findViewById(id).setVisibility(View.VISIBLE);
+				}
+			}
+		});
 	}
 	
 	private MessageHandler handler = new MessageHandler( this );
