@@ -52,6 +52,8 @@ public class MainActivity extends Activity {
 		((Button)findViewById( R.id.manualButton )).setWidth(width/3);
 		((Button)findViewById( R.id.cleanButton )).setWidth(width/2);		
 		((Button)findViewById( R.id.calculateButtonOneThread )).setWidth(width/2);
+		((EditText)findViewById( R.id.target )).setWidth(width/2);
+		((TextView)findViewById( R.id.bestResult )).setWidth(width/2);
 		
 		for ( int i = 0 ;i < tryAloneOperandsButtons.length ; i ++)
 		{

@@ -12,6 +12,7 @@
     <string name="CancelLastMove">Cancel last move</string>
     <string name="TargetNumber">Target number</string>
     <string name="SourceNumber">Source number</string>
+    <string name="BestResult">Best result</string>
     <string name="Clean">Clean all</string>
     <string name="Easy">Easy</string>
     <string name="Hard">Hard</string>

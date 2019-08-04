@@ -16,5 +16,6 @@
     <string name="action_settings">Settings</string>
     <string name="ShowStopper">שעון עצר</string>
     <string name="Share">שתף</string>
+    <string name="BestResult">תוצאה מיטבית</string>
 
 </resources>

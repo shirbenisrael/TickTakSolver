@@ -144,15 +144,31 @@
         </LinearLayout>
     </FrameLayout>
 
-    <EditText
-        android:id="@+id/target"
+    <LinearLayout
+        android:id="@+id/targetLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="12"
-        android:hint="@string/TargetNumber"
-        android:inputType="number"
-        android:textColor="@color/lime">
-    </EditText>
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/target"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="12"
+            android:hint="@string/TargetNumber"
+            android:inputType="number"
+            android:textColor="@color/lime"/>
+
+        <TextView
+            android:id="@+id/bestResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="12"
+            android:gravity="center"
+            android:hint="@string/BestResult"
+            android:textColor="@color/lime"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/startPlayLayout"
