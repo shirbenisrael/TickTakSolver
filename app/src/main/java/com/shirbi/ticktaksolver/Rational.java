@@ -9,6 +9,11 @@ public class Rational {
 		this.mNominator = other.mNominator;
 		this.mDenominator = other.mDenominator;
 	}
+
+	Rational( int nominator, int denominator) {
+		this.mNominator = nominator;
+		this.mDenominator = denominator;
+	}
 	
 	public void Copy( Rational other )
 	{
@@ -31,6 +36,17 @@ public class Rational {
 	public boolean Equals( int other)
 	{		
 		return ( ( other * mDenominator ) == mNominator );
+	}
+
+	public Rational Abs() {
+		return new Rational(Math.abs(mNominator), Math.abs(mDenominator));
+	}
+
+	public boolean AbsSmallerThan( Rational other) {
+		Rational thisAbs = this.Abs();
+		Rational otherAbs = other.Abs();
+
+		return (thisAbs.mDenominator * other.mNominator) > (otherAbs.mDenominator * this.mNominator);
 	}
 	
 	public int GCD(int a, int b) 

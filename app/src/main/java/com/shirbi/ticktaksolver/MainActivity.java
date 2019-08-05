@@ -123,6 +123,9 @@ public class MainActivity extends Activity {
 		
 		if ( numOfOperandLeft == 1 )
 		{
+			String bestResultStr = getString(R.string.BestResult) + ": " + mSolveAlone.GetBestResult();;
+			((TextView)findViewById(R.id.bestResult)).setText(bestResultStr);
+
 			if ( lastOperandValue.equals( String.valueOf(mTarget) ) )
 			{
 				TextView myTextView = 
@@ -331,6 +334,8 @@ public class MainActivity extends Activity {
 	
 	private void cleanResults()
 	{
+		((TextView)findViewById(R.id.bestResult)).setText("");
+
 		for ( int i = 0 ;i < partResultsTextViews.length ; i ++)
 		{
 			TextView myTextView = (TextView) findViewById( partResultsTextViews[i]);
@@ -456,10 +461,10 @@ public class MainActivity extends Activity {
 		cleanResults();
 				
 	}
-	
+
 	private int[] mValues;
 	private int mTarget;
-	
+
 	private boolean readInputs()
 	{
 		int numOfValues = 0;

@@ -4,6 +4,8 @@ public class SolveAlone {
 	
 	TokenOperand mValues[][];
 	int mTarget;
+	Rational mBestResult;
+	Rational mBestDiff;
 
 	private enum State
 	{
@@ -32,6 +34,8 @@ public class SolveAlone {
 		}
 		
 		mTarget = target;
+		mBestResult = new Rational(0);
+		mBestDiff = new Rational(1000);
 		
 		mState = State.NOTHING_WAS_SELECTED;	
 		
@@ -73,8 +77,27 @@ public class SolveAlone {
 		
 		mValues[mCurrentLine+1][mFirstOperandIndex]=newOperand;
 		mValues[mCurrentLine+1][mSecondOperandIndex]=null;
-		
-		
+
+		if (mCurrentLine == mValues.length - 2) {
+			OperatorMinus operatorMinus = new OperatorMinus();
+
+			Rational target = new Rational(mTarget);
+			Rational currentDiff;
+			if (target.AbsSmallerThan(newOperand.mValue)) {
+				currentDiff = operatorMinus.Calculate(newOperand, new TokenOperand(mTarget));
+			} else {
+				currentDiff = operatorMinus.Calculate(new TokenOperand(mTarget), newOperand);
+			}
+
+			if (currentDiff.AbsSmallerThan(mBestDiff)) {
+				mBestDiff = currentDiff;
+				mBestResult = newOperand.mValue;
+			}
+		}
+	}
+
+	public String GetBestResult() {
+		return mBestResult.toString();
 	}
 	
 	public boolean MoveToNextLineIfFinishe()
