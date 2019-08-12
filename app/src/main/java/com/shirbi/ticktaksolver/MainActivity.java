@@ -549,26 +549,9 @@ public class MainActivity extends Activity {
 		tryAlonefields.setVisibility(View.INVISIBLE);
 		
 		cleanResults();
-		
-		Button calculateButton = (Button)findViewById(R.id.calculateButtonOneThread);
-		calculateButton.setEnabled( false );
-		
-		Button cleanButton = (Button)findViewById(R.id.cleanButton );
-		cleanButton.setEnabled( false );						
 
-		Button easyButton = (Button)findViewById(R.id.easyButton );
-		easyButton.setEnabled( false );						
-		
-		Button hardButton = (Button)findViewById(R.id.hardButton );
-		hardButton.setEnabled( false );
-		
-		Button tryAloneButton = (Button)findViewById(R.id.tryAloneButton );
-		tryAloneButton.setEnabled( false );
-		
-		Button cancelLastMoveButton = (Button)findViewById(R.id.cancelLastMoveButton );
-		cancelLastMoveButton.setEnabled( false );
-		
-		
+		enableButtonOnCpuCalculation(false);
+
 		mTicktackSolver = new TicktackSolver(mValues, mTarget, handler);			
 		
 		Runnable runnable = new Runnable() {
@@ -594,7 +577,23 @@ public class MainActivity extends Activity {
 		mythread.start();
 		
 	}
-	
+
+	public void enableButtonOnCpuCalculation(boolean isEnable) {
+		int buttonsToEnable[] = {
+				R.id.calculateButtonOneThread,
+				R.id.cleanButton,
+				R.id.easyButton,
+				R.id.hardButton,
+				R.id.manualButton,
+				R.id.tryAloneButton,
+		};
+
+		for (int id : buttonsToEnable) {
+			Button button = (Button)findViewById(id);
+			button.setEnabled(isEnable);
+		}
+	}
+
 	static class MessageHandler extends Handler
 	{
 		private final WeakReference<MainActivity> mMainActivity;
@@ -621,22 +620,8 @@ public class MainActivity extends Activity {
 			
 			if ( messageType == MessageType.CALCULATION_FINISHED )
 			{
-				Button calculateButton = (Button)activity.findViewById(R.id.calculateButtonOneThread);
-				calculateButton.setEnabled( true );
-				
-				Button cleanButton = (Button)activity.findViewById(R.id.cleanButton );
-				cleanButton.setEnabled( true );
-				
-				Button easyButton = (Button)activity.findViewById(R.id.easyButton );
-				easyButton.setEnabled( true );						
-				
-				Button hardButton = (Button)activity.findViewById(R.id.hardButton );
-				hardButton.setEnabled( true );
-				
-				Button tryAloneButton = (Button)activity.findViewById(R.id.tryAloneButton );
-				tryAloneButton.setEnabled( true );
+				activity.enableButtonOnCpuCalculation(true);
 
-				
 				if ( mTicktackSolver.mResultFormula != null )
 				{								
 					String lastString = null;
