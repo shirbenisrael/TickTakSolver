@@ -38,10 +38,9 @@ public class MainActivity extends Activity {
 		display.getSize(size);
 		int width = size.x;
 
-		for ( int i = 0 ;i < sources.length ; i ++)
+		for (int source: sources)
 		{
-			EditText editText = (EditText) findViewById( sources[i]);
-			
+			EditText editText = (EditText)findViewById(source);
 			editText.setWidth( width/3 );			
 		}	
 				
@@ -55,15 +54,15 @@ public class MainActivity extends Activity {
 		((EditText)findViewById( R.id.target )).setWidth(width/2);
 		((TextView)findViewById( R.id.bestResult )).setWidth(width/2);
 		
-		for ( int i = 0 ;i < tryAloneOperandsButtons.length ; i ++)
+		for ( int id: tryAloneOperandsButtons)
 		{
-			Button button = (Button) findViewById( tryAloneOperandsButtons[i]);
+			Button button = (Button)findViewById(id);
 			SetButtonWidth( button, width/5);
 		}
 		
-		for ( int i = 0 ;i < tryAloneOperatorsButtons.length ; i ++)
+		for ( int id: tryAloneOperatorsButtons)
 		{
-			Button button = (Button) findViewById( tryAloneOperatorsButtons[i]);
+			Button button = (Button) findViewById(id);
 			SetButtonWidth( button, width/5);
 		}
 	}
@@ -80,7 +79,6 @@ public class MainActivity extends Activity {
 	static TicktackSolver mTicktackSolver;
 	
 	private SolveAlone mSolveAlone;
-
 
 	private void SetButtonWidth( Button button, int width ) {
 		ViewGroup.LayoutParams params = button.getLayoutParams();
@@ -107,7 +105,7 @@ public class MainActivity extends Activity {
 		
 		for ( int i = 0 ; i < buttonStrings.length ; i ++ )
 		{
-			Button operandButton =	((Button)findViewById(tryAloneOperandsButtons[i]));
+			Button operandButton = (Button)findViewById(tryAloneOperandsButtons[i]);
 			operandButton.setText(buttonStrings[i]);
 			if ( buttonStrings[i].equals("") )
 			{
@@ -135,12 +133,10 @@ public class MainActivity extends Activity {
 				Button cancelLastMoveButton = (Button)findViewById(R.id.cancelLastMoveButton );
 				cancelLastMoveButton.setEnabled( false );
 				
-				for ( int i = 0 ; i < partResultsTextViews.length ; i++ )
+				for ( int id : partResultsTextViews)
 				{
-					myTextView = (TextView)(findViewById(partResultsTextViews[i]));
-					
+					myTextView = (TextView)findViewById(id);
 					myTextView.setTextColor(getResources().getColor(R.color.red));
-										
 				}
 
 				Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
@@ -159,12 +155,10 @@ public class MainActivity extends Activity {
 		for ( int i = 0 ; i < sources.length ; i++)
 		{					
 			EditText editText = (EditText) findViewById( sources[i]);
-				
 			editText.setText(String.valueOf(numbersSources[i]));			
 		}
 		
 		EditText editText = (EditText) findViewById( R.id.target);
-		
 		editText.setText( String.valueOf( target ) );
 		
 		cleanResults();
@@ -179,16 +173,15 @@ public class MainActivity extends Activity {
 	
 	public void setManualEnable( boolean isEnable )
 	{
-		for ( int i = 0 ; i < sources.length ; i++)
+		for ( int source : sources)
 		{					
-			EditText editText = (EditText) findViewById( sources[i]);
+			EditText editText = (EditText) findViewById(source);
 			editText.setEnabled(isEnable);									
 		}
 		
-		EditText editText = (EditText) findViewById( R.id.target );
+		EditText editText = (EditText)findViewById( R.id.target );
 		editText.setEnabled(isEnable);
-		
-		View sourcesFields = findViewById(R.id.sourcesLayout);
+
 		showSourcesAndHideClock(true);		
 	}
 	
@@ -336,12 +329,10 @@ public class MainActivity extends Activity {
 	{
 		((TextView)findViewById(R.id.bestResult)).setText("");
 
-		for ( int i = 0 ;i < partResultsTextViews.length ; i ++)
+		for (int id :partResultsTextViews)
 		{
-			TextView myTextView = (TextView) findViewById( partResultsTextViews[i]);
-			
+			TextView myTextView = (TextView)findViewById(id);
 			myTextView.setTextColor(getResources().getColor(R.color.white));
-			
 			myTextView.setText("");							
 		}
 		
@@ -354,7 +345,6 @@ public class MainActivity extends Activity {
 		findViewById( R.id.cancelLastMoveButton).setEnabled(false);
 		
 		stopClock();
-			
 	}
 	
 	public void onCancelLastMoveClick( View view)
@@ -366,7 +356,6 @@ public class MainActivity extends Activity {
 		{
 			return;
 		}
-			
 		
 		mSolveAlone.CancelLastMove();
 		
@@ -375,8 +364,7 @@ public class MainActivity extends Activity {
 		
 		showLeftOperandsForSolveAlone();
 	}
-	
-	
+
 	public void onTryAloneButtonClick( View view)
 	{
 		if (!readInputs())
@@ -388,8 +376,8 @@ public class MainActivity extends Activity {
 		
 		view.setEnabled(false);
 		
-		View tryAlonefields = findViewById(R.id.tryAloneFields);
-		tryAlonefields.setVisibility(View.VISIBLE);
+		View tryAloneFields = findViewById(R.id.tryAloneFields);
+		tryAloneFields.setVisibility(View.VISIBLE);
 		
 		showSourcesAndHideClock(false);
 				
@@ -443,10 +431,9 @@ public class MainActivity extends Activity {
 
 	public void onCleanButtonClick( View view)
 	{
-		for ( int i = 0 ;i < sources.length ; i ++)
+		for ( int source : sources)
 		{
-			EditText editText = (EditText) findViewById( sources[i]);
-			
+			EditText editText = (EditText) findViewById( source);
 			editText.setText("");			
 		}		
 		
@@ -459,7 +446,6 @@ public class MainActivity extends Activity {
 		editText.setText("");
 		
 		cleanResults();
-				
 	}
 
 	private int[] mValues;
@@ -476,19 +462,17 @@ public class MainActivity extends Activity {
 			
 			EditText editText = (EditText) findViewById( sources[i]);
 			
-			 try 
-			 { 
-				 int currentValue = Integer.parseInt( editText.getText().toString() );
-				 
-				 if ( currentValue > 0 )
-				 {
-					 numOfValues++;
-				 } 
-			 } catch(NumberFormatException e) 
-			 { 
+			try
+			{
+				int currentValue = Integer.parseInt( editText.getText().toString() );
+				if ( currentValue > 0 )
+				{
+					numOfValues++;
+				}
+			} catch(NumberFormatException e)
+			{
 				  
-			 }
-			
+			}
 		}
 		
 		if ( numOfValues == 0 )
@@ -498,27 +482,23 @@ public class MainActivity extends Activity {
 		mValues = new int[numOfValues];
 		
 		int nextIndex = 0;
-		for ( int i = 0 ;i < sources.length ; i ++)
-		{
-			EditText editText = (EditText) findViewById( sources[i]);
-			
-			 try 
-			 { 
-				 int currentValue = Integer.parseInt( editText.getText().toString() );
-					
-				 if ( currentValue > 0 )
-				 {
-					 Button operandButton = (Button)findViewById( tryAloneOperandsButtons[nextIndex] );			
-					 operandButton.setText( String.valueOf( currentValue ) );
-					 operandButton.setVisibility(View.VISIBLE);
-					 
-					 mValues[nextIndex] = currentValue;
-					 nextIndex++;
-				 } 
-			 } catch(NumberFormatException e) 
-			 { 
-				  
-			 }			
+		for (int source : sources) {
+			EditText editText = (EditText) findViewById(source);
+
+			try {
+				int currentValue = Integer.parseInt(editText.getText().toString());
+
+				if (currentValue > 0) {
+					Button operandButton = (Button) findViewById(tryAloneOperandsButtons[nextIndex]);
+					operandButton.setText(String.valueOf(currentValue));
+					operandButton.setVisibility(View.VISIBLE);
+
+					mValues[nextIndex] = currentValue;
+					nextIndex++;
+				}
+			} catch (NumberFormatException e) {
+
+			}
 		}
 		
 		EditText editText = (EditText) findViewById( R.id.target);
@@ -545,8 +525,8 @@ public class MainActivity extends Activity {
 			return;
 		}
 		
-		View tryAlonefields = findViewById(R.id.tryAloneFields);
-		tryAlonefields.setVisibility(View.INVISIBLE);
+		View tryAloneFields = findViewById(R.id.tryAloneFields);
+		tryAloneFields.setVisibility(View.INVISIBLE);
 		
 		cleanResults();
 
