@@ -337,11 +337,24 @@
 
             <Button
                 android:id="@+id/cleanButton"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onCleanButtonClick"
                 android:text="@string/Clean" />
+
+            <Button
+                android:id="@+id/settingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onSettingButtonClick"
+                android:text="@string/Setting" />
+
         </LinearLayout>
 
     </LinearLayout>
+
+    <include
+        android:id="@+id/setting_layout"
+        layout="@layout/settings" />
+
 </LinearLayout>

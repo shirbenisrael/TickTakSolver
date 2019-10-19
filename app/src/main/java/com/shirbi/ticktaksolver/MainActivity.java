@@ -1,7 +1,10 @@
 package com.shirbi.ticktaksolver;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shirbi.ticktaksolver.TicktackSolver.MessageType;
 
@@ -24,19 +28,21 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.Random;
 
+import static com.shirbi.ticktaksolver.BluetoothChatService.TOAST;
+
 public class MainActivity extends Activity {
 
     private static final String TAG = "ticktacksolver";
     private static final int REQUEST_WRITE_STORAGE = 112;
     private static final int REQUEST_READ_STORAGE = 3;
+    // Intent request codes
+    private static final int REQUEST_CONNECT_DEVICE = 1;
+    private static final int REQUEST_ENABLE_BT = 2;
     static int partResultsTextViews[] = {R.id.partResult1, R.id.partResult2, R.id.partResult3, R.id.partResult4, R.id.partResult5};
-
     static int tryAloneOperandsButtons[] =
             {R.id.tryAlone1, R.id.tryAlone2, R.id.tryAlone3, R.id.tryAlone4, R.id.tryAlone5, R.id.tryAlone6};
-
     static int tryAloneOperatorsButtons[] =
             {R.id.tryAlonePlus, R.id.tryAloneMinus, R.id.tryAloneMult, R.id.tryAloneDiv};
-
     static TicktackSolver mTicktackSolver;
     int sources[] = {R.id.editText1, R.id.editText2, R.id.editText3, R.id.editText4, R.id.editText5, R.id.editText6};
     MainActivity m_activity;
@@ -46,6 +52,14 @@ public class MainActivity extends Activity {
     private int[] mValues;
     private int mTarget;
     private MessageHandler handler = new MessageHandler(this);
+    private BluetoothAdapter mBluetoothAdapter = null;
+    // Name of the connected device
+    private String mConnectedDeviceName = null;
+    // String buffer for outgoing messages
+    private StringBuffer mOutStringBuffer;
+    private BluetoothChatService mChatService = null;
+    private IncomingHandler mHandler = new IncomingHandler(this);
+    private Boolean mTwoPlayerGame = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +81,9 @@ public class MainActivity extends Activity {
         ((Button) findViewById(R.id.easyButton)).setWidth(width / 3);
         ((Button) findViewById(R.id.hardButton)).setWidth(width / 3);
         ((Button) findViewById(R.id.manualButton)).setWidth(width / 3);
-        ((Button) findViewById(R.id.cleanButton)).setWidth(width / 2);
-        ((Button) findViewById(R.id.calculateButtonOneThread)).setWidth(width / 2);
+        ((Button) findViewById(R.id.cleanButton)).setWidth(width / 3);
+        ((Button) findViewById(R.id.calculateButtonOneThread)).setWidth(width / 3);
+        ((Button) findViewById(R.id.settingButton)).setWidth(width / 3);
         ((EditText) findViewById(R.id.target)).setWidth(width / 2);
         ((TextView) findViewById(R.id.bestResult)).setWidth(width / 2);
 
@@ -81,6 +96,8 @@ public class MainActivity extends Activity {
             Button button = (Button) findViewById(id);
             SetButtonWidth(button, width / 5);
         }
+
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
     private void SetButtonWidth(Button button, int width) {
@@ -266,7 +283,6 @@ public class MainActivity extends Activity {
             view.setVisibility(View.INVISIBLE);
         }
 
-
         //view.setBackgroundColor(getResources().getColor(R.color.maroon));
     }
 
@@ -328,6 +344,32 @@ public class MainActivity extends Activity {
         showLeftOperandsForSolveAlone();
     }
 
+    private void sendNewGameMessage() {
+        String message = String.valueOf(BLUETOOTH_MESSAGES.START_GAME);
+
+        // Add the target.
+        EditText editText = (EditText) findViewById(R.id.target);
+        String numberStr = editText.getText().toString();
+        message = message + "," + numberStr;
+
+        // Add the sources.
+        for (int source : sources) {
+            editText = (EditText) findViewById(source);
+
+            try {
+                numberStr = editText.getText().toString();
+                int currentValue = Integer.parseInt(numberStr);
+                if (currentValue > 0) {
+                    message = message + "," + numberStr;
+                }
+            } catch (NumberFormatException e) {
+
+            }
+        }
+
+        sendMessage(message);
+    }
+
     public void onTryAloneButtonClick(View view) {
         if (!readInputs()) {
             return;
@@ -354,6 +396,10 @@ public class MainActivity extends Activity {
 
         View shareButton = (View) findViewById(R.id.shareButton);
         shareButton.setVisibility(View.INVISIBLE);
+
+        if (mTwoPlayerGame) {
+            sendNewGameMessage();
+        }
 
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
@@ -539,6 +585,157 @@ public class MainActivity extends Activity {
         });
     }
 
+    public void onSettingButtonClick(View view) {
+        findViewById(R.id.gameLayout).setVisibility(View.GONE);
+        findViewById(R.id.setting_layout).setVisibility(View.VISIBLE);
+    }
+
+    public void onBackFromSettingClick(View view) {
+        findViewById(R.id.gameLayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.setting_layout).setVisibility(View.GONE);
+    }
+
+    private Boolean VerifyBlueToothEnabled() {
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void RunConnectActivity() {
+        Intent serverIntent = new Intent(this, DeviceListActivity.class);
+        startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
+    }
+
+    public void onConnectClick(View view) {
+        if (VerifyBlueToothEnabled()) {
+            RunConnectActivity();
+        }
+    }
+
+    private void ensureDiscoverable() {
+        if (mBluetoothAdapter.getScanMode() !=
+                BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
+            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+            startActivity(discoverableIntent);
+        }
+    }
+
+    public void discoverable(View view) {
+        ensureDiscoverable();
+    }
+
+    public void disconnect(View view) {
+        // todo:
+        // set disconnect. Copy from DownFall.
+    }
+
+    private void ParseMessage(String message) {
+        String[] strArray = message.split(",");
+        int[] intArray = new int[strArray.length];
+        for (int i = 0; i < strArray.length; i++) {
+            intArray[i] = Integer.parseInt(strArray[i]);
+        }
+
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+
+        switch (intArray[0]) {
+            // TODO: Handle messages
+            case BLUETOOTH_MESSAGES.START_GAME:
+                break;
+            case BLUETOOTH_MESSAGES.END_GAME:
+                break;
+            case BLUETOOTH_MESSAGES.GET_NUMBERS:
+                break;
+        }
+    }
+
+    public void handleMessage(Message msg) {
+        switch (msg.what) {
+            case BluetoothChatService.MESSAGE_WRITE:
+                byte[] writeBuf = (byte[]) msg.obj;
+                // construct a string from the buffer
+                String writeMessage = new String(writeBuf);
+                break;
+            case BluetoothChatService.MESSAGE_READ:
+                byte[] readBuf = (byte[]) msg.obj;
+                // construct a string from the valid bytes in the buffer
+                String readMessage = new String(readBuf, 0, msg.arg1);
+                ParseMessage(readMessage);
+                break;
+            case BluetoothChatService.MESSAGE_DEVICE_NAME:
+                // save the connected device's name
+                mConnectedDeviceName = msg.getData().getString(BluetoothChatService.DEVICE_NAME);
+                Toast.makeText(getApplicationContext(), "Connected to "
+                        + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
+                mTwoPlayerGame = true;
+                break;
+            case BluetoothChatService.MESSAGE_TOAST:
+                Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
+                        Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    private void setupChat() {
+        // Initialize the BluetoothChatService to perform bluetooth connections
+        mChatService = new BluetoothChatService(this, mHandler);
+
+        // Initialize the buffer for outgoing messages
+        mOutStringBuffer = new StringBuffer("");
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_CONNECT_DEVICE:
+                // When DeviceListActivity returns with a device to connect
+                if (resultCode == Activity.RESULT_OK) {
+                    // Get the device MAC address
+                    String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+                    // Get the BluetoothDevice object
+                    BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+                    // Attempt to connect to the device
+
+                    if (mChatService == null) {
+                        setupChat();
+                    }
+
+                    mChatService.connect(device);
+                }
+                break;
+            case REQUEST_ENABLE_BT:
+                // When the request to enable Bluetooth returns
+                if (resultCode == Activity.RESULT_OK) {
+                    // Bluetooth is now enabled, so set up a chat session
+                    RunConnectActivity();
+                } else {
+                    // User did not enable Bluetooth or an error occured
+                    Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
+                }
+        }
+    }
+
+    private void sendMessage(String message) {
+
+        // Check that we're actually connected before trying anything
+        if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
+            Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // Check that there's actually something to send
+        if (message.length() > 0) {
+            // Get the message bytes and tell the BluetoothChatService to write
+            byte[] send = message.getBytes();
+            mChatService.write(send);
+
+            //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
     static class MessageHandler extends Handler {
         private final WeakReference<MainActivity> mMainActivity;
 
@@ -584,4 +781,28 @@ public class MainActivity extends Activity {
             }
         }
     }
+
+    // The Handler that gets information back from the BluetoothChatService
+    static class IncomingHandler extends Handler {
+        private final WeakReference<MainActivity> m_activity;
+
+        IncomingHandler(MainActivity activity) {
+            m_activity = new WeakReference<MainActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            MainActivity activity = m_activity.get();
+            if (activity != null) {
+                activity.handleMessage(msg);
+            }
+        }
+    }
+
+    class BLUETOOTH_MESSAGES {
+        static final int START_GAME = 0;
+        static final int END_GAME = 1;
+        static final int GET_NUMBERS = 2;
+    }
+
 }
