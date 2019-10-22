@@ -371,8 +371,16 @@ public class MainActivity extends Activity {
     }
 
     public void onTryAloneButtonClick(View view) {
+        if (startGame(view)) {
+            if (mTwoPlayerGame) {
+                sendNewGameMessage();
+            }
+        }
+    }
+
+    private boolean startGame(View view) {
         if (!readInputs()) {
-            return;
+            return false;
         }
 
         cleanResults();
@@ -397,12 +405,10 @@ public class MainActivity extends Activity {
         View shareButton = (View) findViewById(R.id.shareButton);
         shareButton.setVisibility(View.INVISIBLE);
 
-        if (mTwoPlayerGame) {
-            sendNewGameMessage();
-        }
-
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
+
+        return true;
     }
 
     private void showSourcesAndHideClock(boolean isSourcesShow) {
@@ -431,11 +437,15 @@ public class MainActivity extends Activity {
         chronometer.setVisibility(checkBox.isChecked() ? View.VISIBLE : View.INVISIBLE);
     }
 
-    public void onCleanButtonClick(View view) {
+    private void cleanInputs() {
         for (int source : sources) {
             EditText editText = (EditText) findViewById(source);
             editText.setText("");
         }
+    }
+
+    public void onCleanButtonClick(View view) {
+        cleanInputs();
 
         View sourcesFields = findViewById(R.id.sourcesLayout);
         showSourcesAndHideClock(false);
@@ -634,6 +644,20 @@ public class MainActivity extends Activity {
         // set disconnect. Copy from DownFall.
     }
 
+    private void readInputsFromSecondPlayer( int intArray[]) {
+        cleanInputs();
+
+        int source_numbers[] = new int[intArray.length - 2];
+        System.arraycopy(intArray, 2, source_numbers, 0, source_numbers.length);
+        int target_number = intArray[1];
+
+        showRandomNumbers(source_numbers, target_number);
+
+        enableTryAloneButton();
+
+        startGame(findViewById(R.id.tryAloneButton));
+    }
+
     private void ParseMessage(String message) {
         String[] strArray = message.split(",");
         int[] intArray = new int[strArray.length];
@@ -646,6 +670,7 @@ public class MainActivity extends Activity {
         switch (intArray[0]) {
             // TODO: Handle messages
             case BLUETOOTH_MESSAGES.START_GAME:
+                readInputsFromSecondPlayer(intArray);
                 break;
             case BLUETOOTH_MESSAGES.END_GAME:
                 break;
