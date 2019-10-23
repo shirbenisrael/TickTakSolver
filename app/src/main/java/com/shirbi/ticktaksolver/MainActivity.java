@@ -660,16 +660,17 @@ public class MainActivity extends Activity {
 
     private void ParseMessage(String message) {
         String[] strArray = message.split(",");
-        int[] intArray = new int[strArray.length];
-        for (int i = 0; i < strArray.length; i++) {
-            intArray[i] = Integer.parseInt(strArray[i]);
-        }
 
+        int messageType = Integer.parseInt(strArray[0]);
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 
-        switch (intArray[0]) {
+        switch (messageType) {
             // TODO: Handle messages
             case BLUETOOTH_MESSAGES.START_GAME:
+                int[] intArray = new int[strArray.length];
+                for (int i = 0; i < strArray.length; i++) {
+                    intArray[i] = Integer.parseInt(strArray[i]);
+                }
                 readInputsFromSecondPlayer(intArray);
                 break;
             case BLUETOOTH_MESSAGES.END_GAME:
