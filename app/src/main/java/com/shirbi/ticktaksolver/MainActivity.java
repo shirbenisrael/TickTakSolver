@@ -158,6 +158,10 @@ public class MainActivity extends Activity {
                 shareButton.setVisibility(View.VISIBLE);
 
                 stopClock();
+
+                if (mTwoPlayerGame) {
+                    sendWinMessageToOtherPlayer();
+                }
             }
         }
     }
@@ -342,6 +346,17 @@ public class MainActivity extends Activity {
         myTextView.setText("");
 
         showLeftOperandsForSolveAlone();
+    }
+
+    private void sendWinMessageToOtherPlayer() {
+        String message = String.valueOf(BLUETOOTH_MESSAGES.END_GAME);
+
+        for (int i : partResultsTextViews) {
+            TextView partResultTextView = (TextView) (findViewById(i));
+            message = message + "," + partResultTextView.getText();
+        }
+
+        sendMessage(message);
     }
 
     private void sendNewGameMessage() {
