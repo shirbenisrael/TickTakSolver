@@ -3,6 +3,7 @@
 
     <string name="app_name">Tick Tack</string>
     <string name="hello_world">Welcome to Tick Tack Solver :-)</string>
+    <string name="lose">You Lose...</string>
     <string name="Calculate">Find a solution</string>
     <string name="Plus">+</string>
     <string name="Minus">-</string>

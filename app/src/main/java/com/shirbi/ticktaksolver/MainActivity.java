@@ -673,6 +673,27 @@ public class MainActivity extends Activity {
         startGame(findViewById(R.id.tryAloneButton));
     }
 
+    private void showLoseMessage(String[] strArray) {
+        for (int id : partResultsTextViews) {
+            TextView myTextView = (TextView)findViewById(id);
+            myTextView.setTextColor(getResources().getColor(R.color.white));
+            myTextView.setText("");
+        }
+
+        for (int i = 1; i < strArray.length; i++) {
+            TextView partResultTextView = (TextView)(findViewById(partResultsTextViews[i-1]));
+            partResultTextView.setText(strArray[i]);
+            partResultTextView.setTextColor(getResources().getColor(R.color.yellow));
+        }
+
+        TextView myTextView = (TextView)(findViewById(R.id.EquationResult));
+        myTextView.setText(R.string.lose);
+
+        findViewById(R.id.tryAloneFields).setVisibility(View.INVISIBLE);
+        findViewById(R.id.cancelLastMoveButton).setEnabled(false);
+        stopClock();
+    }
+
     private void ParseMessage(String message) {
         String[] strArray = message.split(",");
 
@@ -689,6 +710,7 @@ public class MainActivity extends Activity {
                 readInputsFromSecondPlayer(intArray);
                 break;
             case BLUETOOTH_MESSAGES.END_GAME:
+                showLoseMessage(strArray);
                 break;
             case BLUETOOTH_MESSAGES.GET_NUMBERS:
                 break;
