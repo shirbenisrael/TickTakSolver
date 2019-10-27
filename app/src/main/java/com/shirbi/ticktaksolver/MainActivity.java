@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,7 +30,9 @@ import com.shirbi.ticktaksolver.TicktackSolver.MessageType;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import static com.shirbi.ticktaksolver.BluetoothChatService.TOAST;
 
@@ -165,6 +168,8 @@ public class MainActivity extends Activity {
                 if (mTwoPlayerGame) {
                     sendWinMessageToOtherPlayer();
                 }
+
+                PlaySound(R.raw.win);
             }
         }
     }
@@ -695,6 +700,8 @@ public class MainActivity extends Activity {
         findViewById(R.id.tryAloneFields).setVisibility(View.INVISIBLE);
         findViewById(R.id.cancelLastMoveButton).setEnabled(false);
         stopClock();
+
+        PlaySound(R.raw.lose);
     }
 
     private void ParseMessage(String message) {
@@ -818,6 +825,29 @@ public class MainActivity extends Activity {
         }
 
         ShowExitDialog();
+    }
+
+    // Set of all media players which are currently working. Used to prevent garbage collector from
+    // clean them and stop the sounds.
+    private Set<MediaPlayer> m_media_players = new HashSet<MediaPlayer>();
+
+    public void PlaySound(int sound_id) {
+//        TODO: Add this
+//        if (!IsSoundEnable()) {
+//            return;
+//        }
+
+        MediaPlayer media_player;
+        media_player = MediaPlayer.create(this, sound_id);
+        m_media_players.add(media_player);
+        media_player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+                m_media_players.remove(mp);
+            }
+        });
+        media_player.start();
     }
 
     private void sendMessage(String message) {
