@@ -40,5 +40,6 @@
     <string name="exit_game">Exit Game?</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="enable_sounds">Enable Sounds</string>
 
 </resources>

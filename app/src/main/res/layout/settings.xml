@@ -42,6 +42,13 @@
             android:text="@string/disconnect" />
     </LinearLayout>
 
+    <CheckBox
+        android:id="@+id/enable_sound_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="@string/enable_sounds" />
+
     <Button
         android:id="@+id/back_from_setting_button"
         android:layout_width="wrap_content"

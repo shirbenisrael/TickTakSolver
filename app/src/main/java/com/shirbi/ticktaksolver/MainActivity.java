@@ -827,15 +827,19 @@ public class MainActivity extends Activity {
         ShowExitDialog();
     }
 
+    private Boolean IsSoundEnable() {
+        CheckBox enable_sound_check_box = (CheckBox)findViewById(R.id.enable_sound_checkbox);
+        return enable_sound_check_box.isChecked();
+    }
+
     // Set of all media players which are currently working. Used to prevent garbage collector from
     // clean them and stop the sounds.
     private Set<MediaPlayer> m_media_players = new HashSet<MediaPlayer>();
 
     public void PlaySound(int sound_id) {
-//        TODO: Add this
-//        if (!IsSoundEnable()) {
-//            return;
-//        }
+        if (!IsSoundEnable()) {
+            return;
+        }
 
         MediaPlayer media_player;
         media_player = MediaPlayer.create(this, sound_id);
