@@ -17,5 +17,24 @@
     <string name="ShowStopper">שעון עצר</string>
     <string name="Share">שתף</string>
     <string name="BestResult">תוצאה מיטבית</string>
+    <string name="Setting">הגדרות</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="connect">התחבר</string>
+    <string name="discoverable">גלוי</string>
+    <string name="disconnect">התנתק</string>
+    <string name="back_string">חזרה</string>
+    <string name="bt_not_enabled_leaving">BlueTooth is not enabled.</string>
+    <string name="not_connected">לא מחובר</string>
+    <string name="none_paired">אין מצומדים</string>
+    <string name="title_paired_devices">התקנים מצומדים</string>
+    <string name="title_other_devices">התקנים אחרים</string>
+    <string name="button_scan">סריקת התקנים</string>
+    <string name="scanning">סורק...</string>
+    <string name="select_device">בחירת התקן</string>
+    <string name="none_found">אף אחד לא נמצא</string>
+    <string name="exit_game">יציאה מהמשחק?</string>
+    <string name="confirm">אישור</string>
+    <string name="cancel">ביטול</string>
+    <string name="enable_sounds">הפעלת קולות</string>
 
 </resources>
