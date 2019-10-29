@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
@@ -106,6 +107,8 @@ public class MainActivity extends Activity {
         }
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        RestoreState();
     }
 
     private void SetButtonWidth(Button button, int width) {
@@ -447,10 +450,14 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    private Boolean IsStopperShown() {
+        CheckBox checkBox = (CheckBox) findViewById(R.id.ShowStopper);
+        return checkBox.isChecked();
+    }
+
     private void showSourcesAndHideClock(boolean isSourcesShow) {
         View sourcesFields = findViewById(R.id.sourcesLayout);
         Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
-        CheckBox checkBox = (CheckBox) findViewById(R.id.ShowStopper);
         View shareButton = (View) findViewById(R.id.shareButton);
 
         if (isSourcesShow) {
@@ -458,17 +465,10 @@ public class MainActivity extends Activity {
             chronometer.setVisibility(View.INVISIBLE);
             shareButton.setVisibility(View.INVISIBLE);
         } else {
-            chronometer.setVisibility(checkBox.isChecked() ? View.VISIBLE : View.INVISIBLE);
+            chronometer.setVisibility(IsStopperShown() ? View.VISIBLE : View.INVISIBLE);
             sourcesFields.setVisibility(View.INVISIBLE);
             shareButton.setVisibility(View.INVISIBLE);
         }
-    }
-
-    public void onShowStopperClicked(View view) {
-        CheckBox checkBox = (CheckBox) findViewById(R.id.ShowStopper);
-        Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
-
-        chronometer.setVisibility(checkBox.isChecked() ? View.VISIBLE : View.INVISIBLE);
     }
 
     private void cleanInputs() {
@@ -880,6 +880,30 @@ public class MainActivity extends Activity {
 
             //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void RestoreState() {
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+
+        CheckBox enable_sound_check_box = (CheckBox)findViewById(R.id.enable_sound_checkbox);
+        enable_sound_check_box.setChecked(sharedPref.getBoolean(getString(R.string.enable_sound), true));
+
+        CheckBox show_stopper_check_box = (CheckBox)findViewById(R.id.ShowStopper);
+        show_stopper_check_box.setChecked(sharedPref.getBoolean(getString(R.string.show_stopper), true));
+    }
+
+    private void StoreState() {
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean(getString(R.string.enable_sound), IsSoundEnable());
+        editor.putBoolean(getString(R.string.show_stopper), IsStopperShown());
+        editor.commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        StoreState();
+        super.onDestroy();
     }
 
     static class MessageHandler extends Handler {
