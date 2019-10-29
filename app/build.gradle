@@ -6,7 +6,7 @@ android {
         applicationId "com.shirbi.ticktaksolver"
         versionCode 9
         versionName "1.0"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
     }
     buildTypes {

@@ -96,8 +96,8 @@ public class SolveAlone {
 		}
 	}
 
-	public String GetBestResult() {
-		return mBestResult.toString();
+	public Rational GetBestResult() {
+		return new Rational(mBestResult);
 	}
 	
 	public boolean MoveToNextLineIfFinishe()

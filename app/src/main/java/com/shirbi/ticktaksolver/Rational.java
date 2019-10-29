@@ -54,8 +54,31 @@ public class Rational {
 		if (b==0) return a;
 		return GCD(b,a%b);
 	}	
-	
+
+	public Boolean IsFraction() {
+		return ((mDenominator != 1) && (mDenominator != -1));
+	}
+
 	public String toString() {
+		String withoutBrackets = toStringWithoutBrackets();
+		Boolean needBrackets = false;
+
+		if ( mNominator < 0 ) {
+			needBrackets = true;
+		}
+
+		if (IsFraction()) {
+			needBrackets = true;
+		}
+
+		if (needBrackets) {
+			return "(" + withoutBrackets + ")";
+		} else {
+			return withoutBrackets;
+		}
+	}
+
+	public String toStringWithoutBrackets() {
 		if ( mNominator == 0)
 		{ 
 			return "0";
@@ -72,26 +95,12 @@ public class Rational {
 		int gcdValue = GCD( Math.abs(mNominator), mDenominator );
 		mNominator = mNominator / gcdValue;
 		mDenominator = mDenominator / gcdValue;
-				
-		
-		if ( mDenominator == 1)
-		{
-			resultString = String.valueOf( mNominator );
+
+		if ( mDenominator == 1) {
+			return String.valueOf( mNominator );
+		} else {
+			return String.valueOf( mNominator ) + "/" + String.valueOf( mDenominator );
 		}
-		else
-		{
-			return "("+String.valueOf( mNominator ) + "/" + String.valueOf( mDenominator )+")";
-		}
-		
-		if ( mNominator < 0 )
-		{							
-			return "("+resultString+")";
-		}
-		else
-		{
-			return resultString;
-		}		
-		
 	}
 	 
 }
