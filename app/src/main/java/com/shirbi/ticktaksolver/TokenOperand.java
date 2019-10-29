@@ -13,6 +13,8 @@ public class TokenOperand extends Token {
 	public String toString() {		
 		return mValue.toString();
 	}
+
+	public String toStringWithoutBrackets() {return mValue.toStringWithoutBrackets(); }
 	
 	public Rational GetCalculatedValue()
 	{

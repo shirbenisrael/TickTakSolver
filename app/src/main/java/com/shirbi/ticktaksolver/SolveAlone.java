@@ -54,7 +54,7 @@ public class SolveAlone {
 			}
 			else
 			{
-				buttonsText[i] = mValues[mCurrentLine][i].toString();
+				buttonsText[i] = mValues[mCurrentLine][i].toStringWithoutBrackets();
 			}
 		}
 		
