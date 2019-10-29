@@ -53,15 +53,6 @@
                 android:text="@string/Share"
                 android:visibility="invisible" />
 
-            <CheckBox
-                android:id="@+id/ShowStopper"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left|center_vertical"
-                android:onClick="onShowStopperClicked"
-                android:text="@string/ShowStopper"
-                android:visibility="invisible" />
-
             <Chronometer
                 android:id="@+id/chronometer1"
                 android:layout_width="match_parent"

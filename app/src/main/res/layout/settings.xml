@@ -49,6 +49,14 @@
         android:checked="true"
         android:text="@string/enable_sounds" />
 
+    <CheckBox
+        android:id="@+id/ShowStopper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onShowStopperClicked"
+        android:checked="true"
+        android:text="@string/ShowStopper" />
+
     <Button
         android:id="@+id/back_from_setting_button"
         android:layout_width="wrap_content"

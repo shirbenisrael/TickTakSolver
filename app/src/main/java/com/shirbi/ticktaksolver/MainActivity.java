@@ -15,9 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.res.ResourcesCompat;
-import android.text.Html;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +55,7 @@ public class MainActivity extends Activity {
     int sources[] = {R.id.editText1, R.id.editText2, R.id.editText3, R.id.editText4, R.id.editText5, R.id.editText6};
     MainActivity m_activity;
     int m_views_to_hide_for_share[] = {R.id.levelLayout, R.id.startPlayLayout, R.id.tryAloneFields,
-            R.id.bottomButtonsLayout, R.id.shareButton, R.id.ShowStopper};
+            R.id.bottomButtonsLayout, R.id.shareButton};
     private SolveAlone mSolveAlone;
     private int[] mValues;
     private int mTarget;
@@ -458,11 +456,9 @@ public class MainActivity extends Activity {
         if (isSourcesShow) {
             sourcesFields.setVisibility(View.VISIBLE);
             chronometer.setVisibility(View.INVISIBLE);
-            checkBox.setVisibility(View.INVISIBLE);
             shareButton.setVisibility(View.INVISIBLE);
         } else {
             chronometer.setVisibility(checkBox.isChecked() ? View.VISIBLE : View.INVISIBLE);
-            checkBox.setVisibility(View.VISIBLE);
             sourcesFields.setVisibility(View.INVISIBLE);
             shareButton.setVisibility(View.INVISIBLE);
         }
