@@ -152,6 +152,15 @@
                 android:textSize="20dp" />
 
             <TextView
+                android:id="@+id/playerCalcCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="@string/PlayerCalcCounter"
+                android:textColor="@color/lime"
+                android:textSize="20dp" />
+
+            <TextView
                 android:id="@+id/bestResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

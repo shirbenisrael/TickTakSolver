@@ -60,6 +60,7 @@ public class MainActivity extends Activity {
     private SolveAlone mSolveAlone;
     private int[] mValues;
     private int mTarget;
+    private int mPlayerCalcCounter;
     private MessageHandler handler = new MessageHandler(this);
     private BluetoothAdapter mBluetoothAdapter = null;
     // Name of the connected device
@@ -93,8 +94,9 @@ public class MainActivity extends Activity {
         ((Button) findViewById(R.id.cleanButton)).setWidth(width / 3);
         ((Button) findViewById(R.id.calculateButtonOneThread)).setWidth(width / 3);
         ((Button) findViewById(R.id.settingButton)).setWidth(width / 3);
-        ((EditText) findViewById(R.id.target)).setWidth(width / 2);
-        ((TextView) findViewById(R.id.bestResult)).setWidth(width / 2);
+        ((EditText) findViewById(R.id.target)).setWidth(width / 3);
+        ((TextView) findViewById(R.id.playerCalcCounter)).setWidth(width / 3);
+        ((TextView) findViewById(R.id.bestResult)).setWidth(width / 3);
 
         for (int id : tryAloneOperandsButtons) {
             Button button = (Button) findViewById(id);
@@ -307,6 +309,9 @@ public class MainActivity extends Activity {
 
         if (mSolveAlone.MoveToNextLineIfFinishe()) {
             showLeftOperandsForSolveAlone();
+
+            mPlayerCalcCounter++;
+            ((TextView) findViewById(R.id.playerCalcCounter)).setText(Integer.toString(mPlayerCalcCounter));
         } else {
             view.setVisibility(View.INVISIBLE);
         }
@@ -338,6 +343,7 @@ public class MainActivity extends Activity {
 
     private void cleanResults() {
         ((TextView) findViewById(R.id.bestResult)).setText("");
+        ((TextView) findViewById(R.id.playerCalcCounter)).setText("");
 
         for (int id : partResultsTextViews) {
             TextView myTextView = (TextView) findViewById(id);
@@ -354,6 +360,8 @@ public class MainActivity extends Activity {
         findViewById(R.id.cancelLastMoveButton).setEnabled(false);
 
         stopClock();
+
+        mPlayerCalcCounter = 0;
     }
 
     public void onCancelLastMoveClick(View view) {
