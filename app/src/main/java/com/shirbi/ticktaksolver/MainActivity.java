@@ -94,9 +94,13 @@ public class MainActivity extends Activity {
         ((Button) findViewById(R.id.cleanButton)).setWidth(width / 3);
         ((Button) findViewById(R.id.calculateButtonOneThread)).setWidth(width / 3);
         ((Button) findViewById(R.id.settingButton)).setWidth(width / 3);
-        ((EditText) findViewById(R.id.target)).setWidth(width / 3);
-        ((TextView) findViewById(R.id.playerCalcCounter)).setWidth(width / 3);
-        ((TextView) findViewById(R.id.bestResult)).setWidth(width / 3);
+
+        setSquareSizeView(findViewById(R.id.target_icon), width / 6);
+        ((EditText) findViewById(R.id.target)).setWidth(width / 6);
+        setSquareSizeView(findViewById(R.id.steps_icon), width / 6);
+        ((TextView) findViewById(R.id.playerCalcCounter)).setWidth(width / 6);
+        setSquareSizeView(findViewById(R.id.best_result_icon), width / 6);
+        ((TextView) findViewById(R.id.bestResult)).setWidth(width / 6);
 
         for (int id : tryAloneOperandsButtons) {
             Button button = (Button) findViewById(id);
@@ -111,6 +115,11 @@ public class MainActivity extends Activity {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         RestoreState();
+    }
+
+    private void setSquareSizeView(View view, int size) {
+        view.getLayoutParams().width = size;
+        view.getLayoutParams().height = size;
     }
 
     private void SetButtonWidth(Button button, int width) {
@@ -342,8 +351,8 @@ public class MainActivity extends Activity {
     }
 
     private void cleanResults() {
-        ((TextView) findViewById(R.id.bestResult)).setText("");
-        ((TextView) findViewById(R.id.playerCalcCounter)).setText("");
+        ((TextView) findViewById(R.id.bestResult)).setText("-");
+        ((TextView) findViewById(R.id.playerCalcCounter)).setText("0");
 
         for (int id : partResultsTextViews) {
             TextView myTextView = (TextView) findViewById(id);
