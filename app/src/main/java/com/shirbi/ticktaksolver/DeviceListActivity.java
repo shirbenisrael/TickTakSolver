@@ -52,8 +52,8 @@ public class DeviceListActivity extends Activity {
             }
         }
     };
-    // The on-click listener for all devices in the ListViews
-    private OnItemClickListener mDeviceClickListener = new OnItemClickListener() {
+    // The on-click listener for paired devices in the ListViews
+    private OnItemClickListener mPairedDeviceClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView av, View v, int arg2, long arg3) {
             // Cancel discovery because it's costly and we're about to connect
             mBtAdapter.cancelDiscovery();
@@ -66,6 +66,21 @@ public class DeviceListActivity extends Activity {
             // Set result and finish this Activity
             setResult(Activity.RESULT_OK, intent);
             finish();
+        }
+    };
+
+    // The on-click listener for paired devices in the ListViews
+    private OnItemClickListener mNonPairedDeviceClickListener = new OnItemClickListener() {
+        public void onItemClick(AdapterView av, View v, int arg2, long arg3) {
+            // Cancel discovery because it's costly and we're about to connect
+            mBtAdapter.cancelDiscovery();
+            // Get the device MAC address, which is the last 17 chars in the View
+            String info = ((TextView) v).getText().toString();
+            String address = info.substring(info.length() - 17);
+
+            BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
+            device.createBond();
         }
     };
 
@@ -92,11 +107,11 @@ public class DeviceListActivity extends Activity {
         // Find and set up the ListView for paired devices
         ListView pairedListView = (ListView) findViewById(R.id.paired_devices);
         pairedListView.setAdapter(mPairedDevicesArrayAdapter);
-        pairedListView.setOnItemClickListener(mDeviceClickListener);
+        pairedListView.setOnItemClickListener(mPairedDeviceClickListener);
         // Find and set up the ListView for newly discovered devices
         ListView newDevicesListView = (ListView) findViewById(R.id.new_devices);
         newDevicesListView.setAdapter(mNewDevicesArrayAdapter);
-        newDevicesListView.setOnItemClickListener(mDeviceClickListener);
+        newDevicesListView.setOnItemClickListener(mNonPairedDeviceClickListener);
         // Register for broadcasts when a device is discovered
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         this.registerReceiver(mReceiver, filter);
