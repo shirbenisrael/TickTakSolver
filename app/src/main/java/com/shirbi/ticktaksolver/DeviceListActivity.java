@@ -1,13 +1,19 @@
 package com.shirbi.ticktaksolver;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -17,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Set;
 
@@ -34,6 +41,7 @@ public class DeviceListActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             // When discovery finds a device
+
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 // Get the BluetoothDevice object from the Intent
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
@@ -76,7 +84,7 @@ public class DeviceListActivity extends Activity {
         }
     };
 
-    // The on-click listener for paired devices in the ListViews
+    // The on-click listener for non paired devices in the ListViews
     private OnItemClickListener mNonPairedDeviceClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView av, View v, int arg2, long arg3) {
             // Cancel discovery because it's costly and we're about to connect
@@ -156,10 +164,42 @@ public class DeviceListActivity extends Activity {
         this.unregisterReceiver(mReceiver);
     }
 
+    private final int REQUEST_ACCESS_COARSE_LOCATION=1;
+
+    private void showExplanation(String title,
+                                 String message,
+                                 final String permission,
+                                 final int permissionRequestCode) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        requestPermission(permission, permissionRequestCode);
+                    }
+                });
+        builder.create().show();
+    }
+
+    private void requestPermission(String permissionName, int permissionRequestCode) {
+        ActivityCompat.requestPermissions(this,
+                new String[]{permissionName}, permissionRequestCode);
+    }
+
     /**
      * Start device discover with the BluetoothAdapter
      */
     private void doDiscovery() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                showExplanation(getString(R.string.request_permission),
+                        getString(R.string.scan_bluetooth),
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        REQUEST_ACCESS_COARSE_LOCATION);
+                return;
+            }
+        }
+
         // Indicate scanning in the title
         setProgressBarIndeterminateVisibility(true);
         setTitle(R.string.scanning);
@@ -171,5 +211,22 @@ public class DeviceListActivity extends Activity {
         }
         // Request discover from BluetoothAdapter
         mBtAdapter.startDiscovery();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode,
+            String permissions[],
+            int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_ACCESS_COARSE_LOCATION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    doDiscovery();
+                } else {
+                    Toast.makeText(this,
+                            getString(R.string.permission_denied), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.button_scan).setVisibility(View.VISIBLE);
+                }
+        }
     }
 }
