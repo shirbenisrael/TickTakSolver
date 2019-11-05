@@ -319,6 +319,8 @@ public class MainActivity extends Activity {
         if (mSolveAlone.MoveToNextLineIfFinishe()) {
             showLeftOperandsForSolveAlone();
 
+            PlaySound(R.raw.simple_equation);
+
             mPlayerCalcCounter++;
             ((TextView) findViewById(R.id.playerCalcCounter)).setText(Integer.toString(mPlayerCalcCounter));
         } else {
