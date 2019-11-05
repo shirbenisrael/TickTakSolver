@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Set;
 
@@ -49,6 +50,8 @@ public class DeviceListActivity extends Activity {
                     String noDevices = getResources().getText(R.string.none_found).toString();
                     mNewDevicesArrayAdapter.add(noDevices);
                 }
+            } else if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(action)) {
+                Toast.makeText(getApplicationContext(), "Finished pairing", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -117,6 +120,9 @@ public class DeviceListActivity extends Activity {
         this.registerReceiver(mReceiver, filter);
         // Register for broadcasts when discovery has finished
         filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        this.registerReceiver(mReceiver, filter);
+        // Register for bond finish.
+        filter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         this.registerReceiver(mReceiver, filter);
         // Get the local Bluetooth adapter
         mBtAdapter = BluetoothAdapter.getDefaultAdapter();
