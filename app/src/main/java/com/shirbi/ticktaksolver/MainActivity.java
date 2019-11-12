@@ -91,16 +91,13 @@ public class MainActivity extends Activity {
     private void showLeftOperandsForSolveAlone() {
         String[] buttonStrings = mSolveAlone.GetButtonToShows();
 
+        mFrontEndHandler.showLeftOperandsForSolveAlone(buttonStrings);
+
         int numOfOperandLeft = 0;
         String lastOperandValue = null;
 
         for (int i = 0; i < buttonStrings.length; i++) {
-            Button operandButton = (Button) findViewById(tryAloneOperandsButtons[i]);
-            operandButton.setText(buttonStrings[i]);
-            if (buttonStrings[i].equals("")) {
-                operandButton.setVisibility(View.INVISIBLE);
-            } else {
-                operandButton.setVisibility(View.VISIBLE);
+            if (!buttonStrings[i].equals("")) {
                 numOfOperandLeft++;
                 lastOperandValue = buttonStrings[i];
             }

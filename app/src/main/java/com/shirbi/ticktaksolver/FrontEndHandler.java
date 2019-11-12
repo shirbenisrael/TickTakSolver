@@ -77,4 +77,16 @@ public class FrontEndHandler {
             SetButtonWidth(button, width / 5);
         }
     }
+
+    public void showLeftOperandsForSolveAlone(String[] buttonStrings) {
+        for (int i = 0; i < buttonStrings.length; i++) {
+            Button operandButton = (Button) findViewById(tryAloneOperandsButtons[i]);
+            operandButton.setText(buttonStrings[i]);
+            if (buttonStrings[i].equals("")) {
+                operandButton.setVisibility(View.INVISIBLE);
+            } else {
+                operandButton.setVisibility(View.VISIBLE);
+            }
+        }
+    }
 }
