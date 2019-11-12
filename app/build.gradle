@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.shirbi.ticktaksolver"
-        versionCode 10
+        versionCode 11
         versionName "1.0"
         minSdkVersion 21
         targetSdkVersion 28
