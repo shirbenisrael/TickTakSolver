@@ -126,23 +126,19 @@ public class MainActivity extends Activity {
 
         cleanResults();
 
-        setManualEnable(false);
+        mFrontEndHandler.setManualFieldsEnable(false);
+
+        showSourcesAndHideClock(true);
     }
 
     private void enableTryAloneButton() {
         findViewById(R.id.tryAloneButton).setEnabled(true);
     }
 
-    public void setManualEnable(boolean isEnable) {
-        mFrontEndHandler.setManualFieldsEnable(isEnable);
-
-        showSourcesAndHideClock(true);
-    }
-
     public void onManualButtonClick(View view) {
         cleanResults();
-        setManualEnable(true);
-
+        mFrontEndHandler.setManualFieldsEnable(true);
+        showSourcesAndHideClock(true);
         enableTryAloneButton();
     }
 
