@@ -152,4 +152,19 @@ public class FrontEndHandler {
 
         findViewById(R.id.cancelLastMoveButton).setEnabled(false);
     }
+
+    public void showSourcesAndTargetNumbers(int numbersSources[], int target) {
+        for (int i = 0; i < sources.length; i++) {
+            EditText editText = (EditText) findViewById(sources[i]);
+            if (i < numbersSources.length) {
+                editText.setText(String.valueOf(numbersSources[i]));
+            } else {
+                editText.setText("");
+            }
+        }
+
+        EditText editText = (EditText) findViewById(R.id.target);
+        editText.setText(String.valueOf(target));
+    }
+
 }

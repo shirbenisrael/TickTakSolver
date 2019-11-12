@@ -122,13 +122,7 @@ public class MainActivity extends Activity {
     }
 
     private void showRandomNumbers(int numbersSources[], int target) {
-        for (int i = 0; i < sources.length; i++) {
-            EditText editText = (EditText) findViewById(sources[i]);
-            editText.setText(String.valueOf(numbersSources[i]));
-        }
-
-        EditText editText = (EditText) findViewById(R.id.target);
-        editText.setText(String.valueOf(target));
+        mFrontEndHandler.showSourcesAndTargetNumbers(numbersSources, target);
 
         cleanResults();
 
@@ -276,7 +270,7 @@ public class MainActivity extends Activity {
         mFrontEndHandler.cleanResults();
 
         stopClock();
-        
+
         mPlayerCalcCounter = 0;
     }
 
