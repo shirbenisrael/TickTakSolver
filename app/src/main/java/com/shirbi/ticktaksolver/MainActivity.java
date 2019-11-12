@@ -8,14 +8,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
-import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
@@ -107,19 +105,7 @@ public class MainActivity extends Activity {
 
         if (numOfOperandLeft == 1) {
             Rational bestResult = mSolveAlone.GetBestResult();
-            String bestResultStr = bestResult.toStringWithoutBrackets();
-            Boolean isFraction = bestResult.IsFraction();
-            TextView textView = ((TextView) findViewById(R.id.bestResult));
-
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.nutso2);
-            textView.setTypeface(typeface);
-
-            if (isFraction) {
-                textView.setFontFeatureSettings("afrc");
-            } else {
-                textView.setFontFeatureSettings("");
-            }
-            textView.setText(bestResultStr);
+            mFrontEndHandler.showBestResult(bestResult);
 
             if (lastOperandValue.equals(String.valueOf(mTarget))) {
                 TextView myTextView =

@@ -1,6 +1,8 @@
 package com.shirbi.ticktaksolver;
 
 import android.graphics.Point;
+import android.graphics.Typeface;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,5 +90,21 @@ public class FrontEndHandler {
                 operandButton.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    public void showBestResult(Rational bestResult) {
+        String bestResultStr = bestResult.toStringWithoutBrackets();
+        Boolean isFraction = bestResult.IsFraction();
+        TextView textView = ((TextView) findViewById(R.id.bestResult));
+
+        Typeface typeface = ResourcesCompat.getFont(m_activity, R.font.nutso2);
+        textView.setTypeface(typeface);
+
+        if (isFraction) {
+            textView.setFontFeatureSettings("afrc");
+        } else {
+            textView.setFontFeatureSettings("");
+        }
+        textView.setText(bestResultStr);
     }
 }
