@@ -167,4 +167,14 @@ public class FrontEndHandler {
         editText.setText(String.valueOf(target));
     }
 
+    public void setManualFieldsEnable(boolean isEnable) {
+        for (int source : sources) {
+            EditText editText = (EditText) findViewById(source);
+            editText.setEnabled(isEnable);
+        }
+
+        EditText editText = (EditText) findViewById(R.id.target);
+        editText.setEnabled(isEnable);
+    }
+
 }

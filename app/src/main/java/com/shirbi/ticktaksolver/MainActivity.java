@@ -134,13 +134,7 @@ public class MainActivity extends Activity {
     }
 
     public void setManualEnable(boolean isEnable) {
-        for (int source : sources) {
-            EditText editText = (EditText) findViewById(source);
-            editText.setEnabled(isEnable);
-        }
-
-        EditText editText = (EditText) findViewById(R.id.target);
-        editText.setEnabled(isEnable);
+        mFrontEndHandler.setManualFieldsEnable(isEnable);
 
         showSourcesAndHideClock(true);
     }
