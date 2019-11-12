@@ -1,7 +1,10 @@
 package com.shirbi.ticktaksolver;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.Display;
 import android.view.View;
@@ -175,6 +178,28 @@ public class FrontEndHandler {
 
         EditText editText = (EditText) findViewById(R.id.target);
         editText.setEnabled(isEnable);
+    }
+
+    public void showExitDialog() {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(m_activity, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(m_activity);
+        }
+        builder.setTitle(m_activity.getString(R.string.exit_game));
+        builder.setPositiveButton(m_activity.getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                m_activity.Exit();
+            }
+        });
+        builder.setNegativeButton(m_activity.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing
+            }
+        });
+        //builder.setIcon(R.drawable.new_game_icon); // TODO: Add this
+        builder.show();
     }
 
 }
