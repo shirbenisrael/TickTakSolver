@@ -128,4 +128,28 @@ public class FrontEndHandler {
         View shareButton = (View) findViewById(R.id.shareButton);
         shareButton.setVisibility(View.VISIBLE);
     }
+
+    private void setTryAloneFieldsVisibility(boolean is_visible) {
+        View tryAloneFields = findViewById(R.id.tryAloneFields);
+        tryAloneFields.setVisibility(is_visible ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    public void cleanResults() {
+        ((TextView) findViewById(R.id.bestResult)).setText("-");
+        ((TextView) findViewById(R.id.playerCalcCounter)).setText("0");
+
+        for (int id : partResultsTextViews) {
+            TextView myTextView = (TextView) findViewById(id);
+            myTextView.setTextColor(m_activity.getResources().getColor(R.color.white));
+            myTextView.setText("");
+        }
+
+        TextView myTextView =
+                (TextView) (findViewById(R.id.EquationResult));
+        myTextView.setText(R.string.hello_world);
+
+        setTryAloneFieldsVisibility(false);
+
+        findViewById(R.id.cancelLastMoveButton).setEnabled(false);
+    }
 }
