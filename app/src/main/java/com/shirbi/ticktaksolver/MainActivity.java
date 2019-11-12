@@ -366,7 +366,7 @@ public class MainActivity extends Activity {
                 (TextView) (findViewById(R.id.EquationResult));
         myTextView.setText(R.string.hello_world);
 
-        findViewById(R.id.tryAloneFields).setVisibility(View.INVISIBLE);
+        setTryAloneFieldsVisibility(false);
 
         findViewById(R.id.cancelLastMoveButton).setEnabled(false);
 
@@ -436,6 +436,11 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void setTryAloneFieldsVisibility(boolean is_visible) {
+        View tryAloneFields = findViewById(R.id.tryAloneFields);
+        tryAloneFields.setVisibility(is_visible ? View.VISIBLE : View.INVISIBLE);
+    }
+
     private boolean startGame(View view) {
         if (!readInputs()) {
             return false;
@@ -445,8 +450,7 @@ public class MainActivity extends Activity {
 
         view.setEnabled(false);
 
-        View tryAloneFields = findViewById(R.id.tryAloneFields);
-        tryAloneFields.setVisibility(View.VISIBLE);
+        setTryAloneFieldsVisibility(true);
 
         showSourcesAndHideClock(false);
 
@@ -575,8 +579,7 @@ public class MainActivity extends Activity {
             return;
         }
 
-        View tryAloneFields = findViewById(R.id.tryAloneFields);
-        tryAloneFields.setVisibility(View.INVISIBLE);
+        setTryAloneFieldsVisibility(false);
 
         cleanResults();
 
@@ -727,7 +730,7 @@ public class MainActivity extends Activity {
         TextView myTextView = (TextView)(findViewById(R.id.EquationResult));
         myTextView.setText(R.string.lose);
 
-        findViewById(R.id.tryAloneFields).setVisibility(View.INVISIBLE);
+        setTryAloneFieldsVisibility(false);
         findViewById(R.id.cancelLastMoveButton).setEnabled(false);
         stopClock();
 
