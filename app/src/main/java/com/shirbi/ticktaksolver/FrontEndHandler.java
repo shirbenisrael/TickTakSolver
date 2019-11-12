@@ -261,4 +261,55 @@ public class FrontEndHandler {
             button.setEnabled(isEnable);
         }
     }
+
+    public int[] readInputsForEditTexts() {
+        int numOfValues = 0;
+        int values[];
+        for (int i = 0; i < sources.length; i++) {
+            Button operandButton = (Button) findViewById(tryAloneOperandsButtons[i]);
+            operandButton.setText("");
+            operandButton.setVisibility(View.INVISIBLE);
+
+            EditText editText = (EditText) findViewById(sources[i]);
+
+            try {
+                int currentValue = Integer.parseInt(editText.getText().toString());
+                if (currentValue > 0) {
+                    numOfValues++;
+                }
+            } catch (NumberFormatException e) {
+
+            }
+        }
+
+        if (numOfValues == 0) {
+            return null;
+        }
+
+        values = new int[numOfValues];
+
+        int nextIndex = 0;
+        for (int source : sources) {
+            EditText editText = (EditText) findViewById(source);
+
+            try {
+                int currentValue = Integer.parseInt(editText.getText().toString());
+
+                if (currentValue > 0) {
+                    Button operandButton = (Button) findViewById(tryAloneOperandsButtons[nextIndex]);
+                    operandButton.setText(String.valueOf(currentValue));
+                    operandButton.setVisibility(View.VISIBLE);
+
+                    values[nextIndex] = currentValue;
+                    nextIndex++;
+                }
+            } catch (NumberFormatException e) {
+
+            }
+        }
+
+        EditText editText = (EditText) findViewById(R.id.target);
+
+        return values;
+    }
 }
