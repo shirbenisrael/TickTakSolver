@@ -155,6 +155,8 @@ public class MainActivity extends Activity {
             }
         }
 
+        setTryAloneFieldsVisibility(numOfOperandLeft != 1);
+
         if (numOfOperandLeft == 1) {
             Rational bestResult = mSolveAlone.GetBestResult();
             String bestResultStr = bestResult.toStringWithoutBrackets();
@@ -647,6 +649,8 @@ public class MainActivity extends Activity {
                 for (int id : m_views_to_hide_for_share) {
                     findViewById(id).setVisibility(View.VISIBLE);
                 }
+
+                setTryAloneFieldsVisibility(false);
             }
         });
     }
