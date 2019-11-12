@@ -5,6 +5,7 @@
     <string name="hello_world">Welcome to Tick Tack Solver :-)</string>
     <string name="lose">You Lose...</string>
     <string name="Calculate">Find a solution</string>
+    <string name="NoSolution">No solution</string>
     <string name="Plus">+</string>
     <string name="Minus">-</string>
     <string name="Mult">*</string>

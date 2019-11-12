@@ -36,5 +36,15 @@
     <string name="confirm">אישור</string>
     <string name="cancel">ביטול</string>
     <string name="enable_sounds">הפעלת קולות</string>
+    <string name="Div">/</string>
+    <string name="Minus">-</string>
+    <string name="Mult">*</string>
+    <string name="NoSolution">אין פיתרון</string>
+    <string name="Plus">+</string>
+    <string name="PlayerCalcCounter">מונה צעדים</string>
+    <string name="request_permission">בקשת הרשאה</string>
+    <string name="scan_bluetooth">לצורך סריקה</string>
+    <string name="lose">הפסדת...</string>
+    <string name="permission_denied">הרשאה נדחתה!</string>
 
 </resources>

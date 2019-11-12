@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="enable_sound">enable_sound</string>
-    <string name="show_stopper">show_stopper</string>
+    <string name="enable_sound" translatable="false">enable_sound</string>
+    <string name="show_stopper" translatable="false">show_stopper</string>
 </resources>

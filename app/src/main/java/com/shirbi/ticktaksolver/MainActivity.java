@@ -479,7 +479,8 @@ public class MainActivity extends Activity {
 
                 Bundle bundle = new Bundle();
 
-                String resultString = resultIsGood ? mTicktackSolver.mResultFormula.ToString() : "אין פיתרון";
+                String resultString = resultIsGood ? mTicktackSolver.mResultFormula.ToString() :
+                        getString(R.string.NoSolution);
 
                 bundle.putString("myKey", resultString);
                 bundle.putInt("otherKey", MessageType.CALCULATION_FINISHED.ordinal());
