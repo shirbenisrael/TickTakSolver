@@ -108,23 +108,7 @@ public class MainActivity extends Activity {
             mFrontEndHandler.showBestResult(bestResult);
 
             if (lastOperandValue.equals(String.valueOf(mTarget))) {
-                TextView myTextView =
-                        (TextView) (findViewById(R.id.EquationResult));
-                myTextView.setText(R.string.WinMessage);
-
-                Button cancelLastMoveButton = (Button) findViewById(R.id.cancelLastMoveButton);
-                cancelLastMoveButton.setEnabled(false);
-
-                for (int id : partResultsTextViews) {
-                    myTextView = (TextView) findViewById(id);
-                    myTextView.setTextColor(getResources().getColor(R.color.red));
-                }
-
-                Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
-                chronometer.setVisibility(View.VISIBLE);
-
-                View shareButton = (View) findViewById(R.id.shareButton);
-                shareButton.setVisibility(View.VISIBLE);
+                mFrontEndHandler.showWinMessage();
 
                 stopClock();
 

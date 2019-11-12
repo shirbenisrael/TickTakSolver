@@ -7,6 +7,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -106,5 +107,25 @@ public class FrontEndHandler {
             textView.setFontFeatureSettings("");
         }
         textView.setText(bestResultStr);
+    }
+
+    public void showWinMessage() {
+        TextView myTextView =
+                (TextView) (findViewById(R.id.EquationResult));
+        myTextView.setText(R.string.WinMessage);
+
+        Button cancelLastMoveButton = (Button) findViewById(R.id.cancelLastMoveButton);
+        cancelLastMoveButton.setEnabled(false);
+
+        for (int id : partResultsTextViews) {
+            myTextView = (TextView) findViewById(id);
+            myTextView.setTextColor(m_activity.getResources().getColor(R.color.red));
+        }
+
+        Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
+        chronometer.setVisibility(View.VISIBLE);
+
+        View shareButton = (View) findViewById(R.id.shareButton);
+        shareButton.setVisibility(View.VISIBLE);
     }
 }
