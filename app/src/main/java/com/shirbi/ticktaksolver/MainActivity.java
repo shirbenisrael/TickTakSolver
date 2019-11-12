@@ -514,9 +514,7 @@ public class MainActivity extends Activity {
     }
 
     public void onShareButtonClick(View button) throws IOException {
-        for (int id : m_views_to_hide_for_share) {
-            findViewById(id).setVisibility(View.GONE);
-        }
+        mFrontEndHandler.setWindowForShare(true);
 
         m_activity = this;
         final View view = findViewById(R.id.fullWindow);
@@ -530,11 +528,7 @@ public class MainActivity extends Activity {
 
                 view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
-                for (int id : m_views_to_hide_for_share) {
-                    findViewById(id).setVisibility(View.VISIBLE);
-                }
-
-                setTryAloneFieldsVisibility(false);
+                mFrontEndHandler.setWindowForShare(false);
             }
         });
     }

@@ -231,4 +231,17 @@ public class FrontEndHandler {
             findViewById(R.id.setting_layout).setVisibility(View.GONE);
         }
     }
+
+    public void setWindowForShare(boolean isShare) {
+        if (isShare) {
+            for (int id : m_views_to_hide_for_share) {
+                findViewById(id).setVisibility(View.GONE);
+            }
+        } else {
+            for (int id : m_views_to_hide_for_share) {
+                findViewById(id).setVisibility(View.VISIBLE);
+            }
+            setTryAloneFieldsVisibility(false);
+        }
+    }
 }
