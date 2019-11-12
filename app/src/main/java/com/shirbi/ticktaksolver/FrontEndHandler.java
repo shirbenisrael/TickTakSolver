@@ -222,4 +222,13 @@ public class FrontEndHandler {
         builder.show();
     }
 
+    public void setSettingShow(boolean isShow) {
+        if (isShow) {
+            findViewById(R.id.gameLayout).setVisibility(View.GONE);
+            findViewById(R.id.setting_layout).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.gameLayout).setVisibility(View.VISIBLE);
+            findViewById(R.id.setting_layout).setVisibility(View.GONE);
+        }
+    }
 }

@@ -540,13 +540,11 @@ public class MainActivity extends Activity {
     }
 
     public void onSettingButtonClick(View view) {
-        findViewById(R.id.gameLayout).setVisibility(View.GONE);
-        findViewById(R.id.setting_layout).setVisibility(View.VISIBLE);
+        mFrontEndHandler.setSettingShow(true);
     }
 
     public void onBackFromSettingClick(View view) {
-        findViewById(R.id.gameLayout).setVisibility(View.VISIBLE);
-        findViewById(R.id.setting_layout).setVisibility(View.GONE);
+        mFrontEndHandler.setSettingShow(false);
     }
 
     private Boolean VerifyBlueToothEnabled() {
