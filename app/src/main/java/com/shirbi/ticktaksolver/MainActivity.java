@@ -603,23 +603,7 @@ public class MainActivity extends Activity {
     }
 
     private void showLoseMessage(String[] strArray) {
-        for (int id : partResultsTextViews) {
-            TextView myTextView = (TextView)findViewById(id);
-            myTextView.setTextColor(getResources().getColor(R.color.white));
-            myTextView.setText("");
-        }
-
-        for (int i = 1; i < strArray.length; i++) {
-            TextView partResultTextView = (TextView)(findViewById(partResultsTextViews[i-1]));
-            partResultTextView.setText(strArray[i]);
-            partResultTextView.setTextColor(getResources().getColor(R.color.yellow));
-        }
-
-        TextView myTextView = (TextView)(findViewById(R.id.EquationResult));
-        myTextView.setText(R.string.lose);
-
-        setTryAloneFieldsVisibility(false);
-        findViewById(R.id.cancelLastMoveButton).setEnabled(false);
+        mFrontEndHandler.showLoseMessage(strArray);
         stopClock();
 
         PlaySound(R.raw.lose);
