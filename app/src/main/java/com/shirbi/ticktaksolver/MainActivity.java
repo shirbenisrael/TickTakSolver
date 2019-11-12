@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Point;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -17,9 +16,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.support.v4.content.res.ResourcesCompat;
-import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -77,57 +74,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         mFrontEndHandler = new FrontEndHandler(this);
-
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-
-        for (int source : sources) {
-            EditText editText = (EditText) findViewById(source);
-            editText.setWidth(width / 3);
-        }
-
-        ((Button) findViewById(R.id.tryAloneButton)).setWidth(width / 2);
-        ((Button) findViewById(R.id.cancelLastMoveButton)).setWidth(width / 2);
-        ((Button) findViewById(R.id.easyButton)).setWidth(width / 3);
-        ((Button) findViewById(R.id.hardButton)).setWidth(width / 3);
-        ((Button) findViewById(R.id.manualButton)).setWidth(width / 3);
-        ((Button) findViewById(R.id.cleanButton)).setWidth(width / 3);
-        ((Button) findViewById(R.id.calculateButtonOneThread)).setWidth(width / 3);
-        ((Button) findViewById(R.id.settingButton)).setWidth(width / 3);
-
-        setSquareSizeView(findViewById(R.id.target_icon), width / 6);
-        ((EditText) findViewById(R.id.target)).setWidth(width / 6);
-        setSquareSizeView(findViewById(R.id.steps_icon), width / 6);
-        ((TextView) findViewById(R.id.playerCalcCounter)).setWidth(width / 6);
-        setSquareSizeView(findViewById(R.id.best_result_icon), width / 6);
-        ((TextView) findViewById(R.id.bestResult)).setWidth(width / 6);
-
-        for (int id : tryAloneOperandsButtons) {
-            Button button = (Button) findViewById(id);
-            SetButtonWidth(button, width / 5);
-        }
-
-        for (int id : tryAloneOperatorsButtons) {
-            Button button = (Button) findViewById(id);
-            SetButtonWidth(button, width / 5);
-        }
-
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         RestoreState();
-    }
-
-    private void setSquareSizeView(View view, int size) {
-        view.getLayoutParams().width = size;
-        view.getLayoutParams().height = size;
-    }
-
-    private void SetButtonWidth(Button button, int width) {
-        ViewGroup.LayoutParams params = button.getLayoutParams();
-        params.width = width;
-        button.setLayoutParams(params);
     }
 
     private void stopClock() {
