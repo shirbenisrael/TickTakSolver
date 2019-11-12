@@ -70,11 +70,13 @@ public class MainActivity extends Activity {
     private BluetoothChatService mChatService = null;
     private IncomingHandler mHandler = new IncomingHandler(this);
     private Boolean mTwoPlayerGame = false;
+    private FrontEndHandler mFrontEndHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        mFrontEndHandler = new FrontEndHandler(this);
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
