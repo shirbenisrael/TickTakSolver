@@ -244,4 +244,21 @@ public class FrontEndHandler {
             setTryAloneFieldsVisibility(false);
         }
     }
+
+    public void setEnabledButtonOnCpuCalculation(boolean isEnable) {
+        int buttonsToEnable[] = {
+                R.id.calculateButtonOneThread,
+                R.id.cleanButton,
+                R.id.easyButton,
+                R.id.hardButton,
+                R.id.manualButton,
+                R.id.tryAloneButton,
+                R.id.settingButton,
+        };
+
+        for (int id : buttonsToEnable) {
+            Button button = (Button) findViewById(id);
+            button.setEnabled(isEnable);
+        }
+    }
 }

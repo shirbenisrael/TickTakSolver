@@ -469,7 +469,7 @@ public class MainActivity extends Activity {
 
         cleanResults();
 
-        enableButtonOnCpuCalculation(false);
+        mFrontEndHandler.setEnabledButtonOnCpuCalculation(false);
 
         mTicktackSolver = new TicktackSolver(mValues, mTarget, handler);
 
@@ -494,23 +494,6 @@ public class MainActivity extends Activity {
 
         Thread mythread = new Thread(runnable);
         mythread.start();
-
-    }
-
-    public void enableButtonOnCpuCalculation(boolean isEnable) {
-        int buttonsToEnable[] = {
-                R.id.calculateButtonOneThread,
-                R.id.cleanButton,
-                R.id.easyButton,
-                R.id.hardButton,
-                R.id.manualButton,
-                R.id.tryAloneButton,
-        };
-
-        for (int id : buttonsToEnable) {
-            Button button = (Button) findViewById(id);
-            button.setEnabled(isEnable);
-        }
     }
 
     public void onShareButtonClick(View button) throws IOException {
@@ -793,7 +776,7 @@ public class MainActivity extends Activity {
             myTextView.setText(string);
 
             if (messageType == MessageType.CALCULATION_FINISHED) {
-                activity.enableButtonOnCpuCalculation(true);
+                activity.mFrontEndHandler.setEnabledButtonOnCpuCalculation(true);
 
                 if (mTicktackSolver.mResultFormula != null) {
                     String lastString = null;
