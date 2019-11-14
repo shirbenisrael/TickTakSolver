@@ -129,17 +129,21 @@ public class MainActivity extends Activity {
     }
 
     private void enableTryAloneButton() {
-        findViewById(R.id.tryAloneButton).setEnabled(true);
+        findViewById(R.id.startPlayingButton).setEnabled(true);
     }
 
-    public void onManualButtonClick(View view) {
+    public void startManualGame() {
         cleanResults();
         mFrontEndHandler.setManualFieldsEnable(true);
         showSourcesAndHideClock(true);
         enableTryAloneButton();
     }
 
-    public void onEasyButtonClick(View view) {
+    public void onNewGameButtonClick(View view) {
+        mFrontEndHandler.showNewGameDialog();
+    }
+
+    public void startEasyGame() {
         Random rand = new Random();
 
         int numbers[] = new int[sources.length];
@@ -164,9 +168,11 @@ public class MainActivity extends Activity {
         showRandomNumbers(numbers, target);
 
         enableTryAloneButton();
+
+        onStartPlayingButtonClick(findViewById(R.id.startPlayingButton));
     }
 
-    public void onHardButtonClick(View view) {
+    public void startHardGame() {
         Random rand = new Random();
 
         int numbers[] = new int[sources.length];
@@ -192,6 +198,8 @@ public class MainActivity extends Activity {
         showRandomNumbers(numbers, target);
 
         enableTryAloneButton();
+
+        onStartPlayingButtonClick(findViewById(R.id.startPlayingButton));
     }
 
     public void onTryAloneOperandClick(View view) {
@@ -314,7 +322,7 @@ public class MainActivity extends Activity {
         sendMessage(message);
     }
 
-    public void onTryAloneButtonClick(View view) {
+    public void onStartPlayingButtonClick(View view) {
         if (startGame(view)) {
             if (mTwoPlayerGame) {
                 sendNewGameMessage();
@@ -538,7 +546,7 @@ public class MainActivity extends Activity {
 
         enableTryAloneButton();
 
-        startGame(findViewById(R.id.tryAloneButton));
+        startGame(findViewById(R.id.startPlayingButton));
     }
 
     private void showLoseMessage(String[] strArray) {

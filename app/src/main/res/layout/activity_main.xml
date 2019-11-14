@@ -16,28 +16,15 @@
             android:id="@+id/levelLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/easyButton"
+                android:id="@+id/newGameButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onEasyButtonClick"
-                android:text="@string/Easy" />
-
-            <Button
-                android:id="@+id/hardButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onHardButtonClick"
-                android:text="@string/Hard" />
-
-            <Button
-                android:id="@+id/manualButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onManualButtonClick"
-                android:text="@string/Manual" />
+                android:onClick="onNewGameButtonClick"
+                android:text="@string/new_game" />
         </LinearLayout>
 
         <FrameLayout
@@ -79,6 +66,7 @@
                         android:ems="10"
                         android:hint="@string/SourceNumber"
                         android:inputType="number"
+                        android:enabled="false"
                         android:nextFocusDown="@+id/editText2"></EditText>
 
                     <EditText
@@ -88,6 +76,7 @@
                         android:ems="10"
                         android:hint="@string/SourceNumber"
                         android:inputType="number"
+                        android:enabled="false"
                         android:nextFocusDown="@+id/editText3"></EditText>
 
                     <EditText
@@ -97,6 +86,7 @@
                         android:ems="10"
                         android:hint="@string/SourceNumber"
                         android:inputType="number"
+                        android:enabled="false"
                         android:nextFocusDown="@+id/editText4"></EditText>
                 </LinearLayout>
 
@@ -112,6 +102,7 @@
                         android:ems="10"
                         android:hint="@string/SourceNumber"
                         android:inputType="number"
+                        android:enabled="false"
                         android:nextFocusDown="@+id/editText5"></EditText>
 
                     <EditText
@@ -121,6 +112,7 @@
                         android:ems="10"
                         android:hint="@string/SourceNumber"
                         android:inputType="number"
+                        android:enabled="false"
                         android:nextFocusDown="@+id/editText6"></EditText>
 
                     <EditText
@@ -130,6 +122,7 @@
                         android:ems="10"
                         android:hint="@string/SourceNumber"
                         android:inputType="number"
+                        android:enabled="false"
                         android:nextFocusDown="@+id/target"></EditText>
                 </LinearLayout>
             </LinearLayout>
@@ -154,6 +147,7 @@
                 android:layout_height="wrap_content"
                 android:ems="12"
                 android:inputType="number"
+                android:enabled="false"
                 android:textColor="@color/lime"
                 android:textSize="20dp" />
 
@@ -198,11 +192,11 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/tryAloneButton"
+                android:id="@+id/startPlayingButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onTryAloneButtonClick"
-                android:text="@string/TryAlone" />
+                android:onClick="onStartPlayingButtonClick"
+                android:text="@string/StartPlaying" />
 
             <Button
                 android:id="@+id/cancelLastMoveButton"

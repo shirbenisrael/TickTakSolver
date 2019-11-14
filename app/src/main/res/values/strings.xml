@@ -10,7 +10,7 @@
     <string name="Minus">-</string>
     <string name="Mult">*</string>
     <string name="Div">/</string>
-    <string name="TryAlone">Try alone</string>
+    <string name="StartPlaying">Start Playing</string>
     <string name="CancelLastMove">Cancel last move</string>
     <string name="TargetNumber">Target number</string>
     <string name="SourceNumber">Source number</string>
@@ -43,6 +43,7 @@
     <string name="select_device">Select a Device</string>
     <string name="none_found">None found</string>
     <string name="exit_game">Exit Game?</string>
+    <string name="new_game">New Game</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="enable_sounds">Enable Sounds</string>

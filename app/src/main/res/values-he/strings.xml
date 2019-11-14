@@ -4,7 +4,6 @@
     <string name="app_name">תיק תק</string>
     <string name="hello_world">ברוך הבא לפותר המשוואות :-)</string>    
     <string name="Calculate">מצא פתרון</string>
-    <string name="TryAlone">נסה לבד</string>
     <string name="CancelLastMove">בטל צעד אחרון</string>
     <string name="TargetNumber">מספר היעד</string>
     <string name="SourceNumber">מספר מקור</string>
@@ -46,5 +45,7 @@
     <string name="scan_bluetooth">לצורך סריקה</string>
     <string name="lose">הפסדת...</string>
     <string name="permission_denied">הרשאה נדחתה!</string>
+    <string name="new_game">משחק חדש</string>
+    <string name="StartPlaying">התחלת משחק</string>
 
 </resources>

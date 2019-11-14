@@ -57,11 +57,9 @@ public class FrontEndHandler {
             editText.setWidth(width / 3);
         }
 
-        ((Button) findViewById(R.id.tryAloneButton)).setWidth(width / 2);
+        ((Button) findViewById(R.id.startPlayingButton)).setWidth(width / 2);
         ((Button) findViewById(R.id.cancelLastMoveButton)).setWidth(width / 2);
-        ((Button) findViewById(R.id.easyButton)).setWidth(width / 3);
-        ((Button) findViewById(R.id.hardButton)).setWidth(width / 3);
-        ((Button) findViewById(R.id.manualButton)).setWidth(width / 3);
+        ((Button) findViewById(R.id.newGameButton)).setWidth((width * 2)/3);
         ((Button) findViewById(R.id.cleanButton)).setWidth(width / 3);
         ((Button) findViewById(R.id.calculateButtonOneThread)).setWidth(width / 3);
         ((Button) findViewById(R.id.settingButton)).setWidth(width / 3);
@@ -222,6 +220,42 @@ public class FrontEndHandler {
         builder.show();
     }
 
+    public void showNewGameDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(m_activity, android.R.style.Theme_Material_Dialog_Alert);
+        builder.setTitle(m_activity.getString(R.string.new_game));
+
+        builder.setNegativeButton(m_activity.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing
+            }
+        });
+
+        builder.setItems(new CharSequence[]
+                        {m_activity.getString(R.string.Easy),
+                         m_activity.getString(R.string.Hard),
+                         m_activity.getString(R.string.Manual)},
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                        switch (which) {
+                            case 0:
+                                m_activity.startEasyGame();
+                                break;
+                            case 1:
+                                m_activity.startHardGame();
+                                break;
+                            case 2:
+                                m_activity.startManualGame();
+                                break;
+                        }
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     public void setSettingShow(boolean isShow) {
         if (isShow) {
             findViewById(R.id.gameLayout).setVisibility(View.GONE);
@@ -249,10 +283,8 @@ public class FrontEndHandler {
         int buttonsToEnable[] = {
                 R.id.calculateButtonOneThread,
                 R.id.cleanButton,
-                R.id.easyButton,
-                R.id.hardButton,
-                R.id.manualButton,
-                R.id.tryAloneButton,
+                R.id.newGameButton,
+                R.id.startPlayingButton,
                 R.id.settingButton,
         };
 
