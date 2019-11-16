@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.SystemClock;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.Display;
 import android.view.View;
@@ -13,6 +14,9 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class FrontEndHandler {
     MainActivity m_activity;
@@ -173,6 +177,63 @@ public class FrontEndHandler {
 
         findViewById(R.id.cancelLastMoveButton).setEnabled(false);
     }
+
+    private Timer m_timer;
+
+    public void animateOperandsAndOperators() {
+        for (int id: tryAloneOperandsButtons) {
+            Button button =(Button)findViewById(id);
+            button.setVisibility(View.INVISIBLE);
+        }
+        for (int id: tryAloneOperatorsButtons) {
+            Button button =(Button)findViewById(id);
+            button.setVisibility(View.INVISIBLE);
+        }
+
+        m_timer = new Timer();
+        m_timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                TimerMethod();
+            }
+
+        }, 0, 250);
+    }
+
+    private void TimerMethod() {
+        m_activity.runOnUiThread(m_timer_tick);
+    }
+
+    private Button findNextButtonToShow() {
+        for (int id: tryAloneOperandsButtons) {
+            Button button =(Button)findViewById(id);
+            if ((button.getVisibility() == View.INVISIBLE) && (!button.getText().equals(""))) {
+                return button;
+            }
+        }
+        for (int id: tryAloneOperatorsButtons) {
+            Button button =(Button)findViewById(id);
+            if (button.getVisibility() == View.INVISIBLE) {
+                return button;
+            }
+        }
+        return null;
+    }
+
+    private Runnable m_timer_tick = new Runnable() {
+        public void run() {
+            Button button = findNextButtonToShow();
+            if (button != null) {
+                button.setVisibility(View.VISIBLE);
+                m_activity.PlaySound(R.raw.simple_equation);
+            } else {
+                Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                chronometer.start();
+                m_timer.cancel();
+            }
+        }
+    };
 
     public void showSourcesAndTargetNumbers(int numbersSources[], int target) {
         for (int i = 0; i < sources.length; i++) {

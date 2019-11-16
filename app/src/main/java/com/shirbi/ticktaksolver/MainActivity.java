@@ -357,12 +357,12 @@ public class MainActivity extends Activity {
         mSolveAlone = new SolveAlone(mValues, mTarget);
 
         Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
+        chronometer.setBase(SystemClock.elapsedRealtime());
 
         View shareButton = (View) findViewById(R.id.shareButton);
         shareButton.setVisibility(View.INVISIBLE);
 
-        chronometer.setBase(SystemClock.elapsedRealtime());
-        chronometer.start();
+        mFrontEndHandler.animateOperandsAndOperators();
 
         return true;
     }
