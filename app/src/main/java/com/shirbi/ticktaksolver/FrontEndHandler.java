@@ -84,6 +84,12 @@ public class FrontEndHandler {
             Button button = (Button) findViewById(id);
             SetButtonWidth(button, width / 5);
         }
+
+        m_part_result_timer = new PartResultTimer[partResultsTextViews.length];
+        for (int lineNum = 0 ; lineNum < partResultsTextViews.length; lineNum++) {
+            TextView textView = (TextView)findViewById(partResultsTextViews[lineNum]);
+            m_part_result_timer[lineNum] = new PartResultTimer(activity, textView);
+        }
     }
 
     public void showLeftOperandsForSolveAlone(String[] buttonStrings) {
@@ -176,6 +182,15 @@ public class FrontEndHandler {
         setTryAloneFieldsVisibility(false);
 
         findViewById(R.id.cancelLastMoveButton).setEnabled(false);
+    }
+
+    private PartResultTimer m_part_result_timer[];
+
+    public void animatePartResult(int lineNum) {
+        if (lineNum > 0) {
+            m_part_result_timer[lineNum - 1].StopAnimate();
+        }
+        m_part_result_timer[lineNum].Animate();
     }
 
     private Timer m_start_game_timer;

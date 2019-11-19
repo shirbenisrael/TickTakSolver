@@ -224,6 +224,7 @@ public class MainActivity extends Activity {
         TextView myTextView = (TextView) findViewById(partResultsTextViews[lineIndex]);
 
         myTextView.setText(formulaToShow);
+        mFrontEndHandler.animatePartResult(lineIndex);
 
         if (mSolveAlone.MoveToNextLineIfFinishe()) {
             showLeftOperandsForSolveAlone();
@@ -257,6 +258,7 @@ public class MainActivity extends Activity {
         TextView myTextView = (TextView) findViewById(partResultsTextViews[lineIndex]);
 
         myTextView.setText(formulaToShow);
+        mFrontEndHandler.animatePartResult(lineIndex);
 
         //view.setBackgroundColor(getResources().getColor(R.color.olive));
     }
