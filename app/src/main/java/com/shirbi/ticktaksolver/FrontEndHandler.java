@@ -178,7 +178,7 @@ public class FrontEndHandler {
         findViewById(R.id.cancelLastMoveButton).setEnabled(false);
     }
 
-    private Timer m_timer;
+    private Timer m_start_game_timer;
 
     public void animateOperandsAndOperators() {
         for (int id: tryAloneOperandsButtons) {
@@ -190,18 +190,18 @@ public class FrontEndHandler {
             button.setVisibility(View.INVISIBLE);
         }
 
-        m_timer = new Timer();
-        m_timer.schedule(new TimerTask() {
+        m_start_game_timer = new Timer();
+        m_start_game_timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                TimerMethod();
+                StartGameTimerMethod();
             }
 
         }, 0, 250);
     }
 
-    private void TimerMethod() {
-        m_activity.runOnUiThread(m_timer_tick);
+    private void StartGameTimerMethod() {
+        m_activity.runOnUiThread(m_start_game_timer_tick);
     }
 
     private Button findNextButtonToShow() {
@@ -220,7 +220,7 @@ public class FrontEndHandler {
         return null;
     }
 
-    private Runnable m_timer_tick = new Runnable() {
+    private Runnable m_start_game_timer_tick = new Runnable() {
         public void run() {
             Button button = findNextButtonToShow();
             if (button != null) {
@@ -230,7 +230,7 @@ public class FrontEndHandler {
                 Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
-                m_timer.cancel();
+                m_start_game_timer.cancel();
             }
         }
     };
