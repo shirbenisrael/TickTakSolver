@@ -20,7 +20,7 @@ public class PartResultTimer {
 
     public void StopAnimate()
     {
-        m_countdown = 1;
+        m_countdown = 0;
     }
 
     public void Animate() {
@@ -49,8 +49,8 @@ public class PartResultTimer {
 
     private Runnable m_timer_tick = new Runnable() {
         public void run() {
-            m_countdown--;
             if (m_countdown > 0) {
+                m_countdown--;
                 current_alpha += direction;
                 if (current_alpha > 255) {
                     current_alpha = 255;
