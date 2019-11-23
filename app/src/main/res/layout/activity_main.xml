@@ -187,8 +187,9 @@
 
         <LinearLayout
             android:id="@+id/startPlayLayout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <Button
@@ -199,13 +200,6 @@
                 android:onClick="onStartPlayingButtonClick"
                 android:text="@string/StartPlaying" />
 
-            <Button
-                android:id="@+id/cancelLastMoveButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:onClick="onCancelLastMoveClick"
-                android:text="@string/CancelLastMove" />
         </LinearLayout>
 
         <LinearLayout
@@ -312,10 +306,20 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <ImageButton
+                android:id="@+id/partResult1TrashBin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:onClick="onCancelLastMoveClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/trash_bin_icon" />
+
             <TextView
                 android:id="@+id/partResult1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="24sp"
                 android:textSize="24sp" />
 
         </LinearLayout>
@@ -324,11 +328,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/partResult2TrashBin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:onClick="onCancelLastMoveClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/trash_bin_icon" />
 
             <TextView
                 android:id="@+id/partResult2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="24sp"
                 android:textSize="24sp" />
 
         </LinearLayout>
@@ -337,11 +351,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/partResult3TrashBin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:onClick="onCancelLastMoveClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/trash_bin_icon" />
 
             <TextView
                 android:id="@+id/partResult3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="24sp"
                 android:textSize="24sp" />
 
         </LinearLayout>
@@ -350,11 +374,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/partResult4TrashBin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:onClick="onCancelLastMoveClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/trash_bin_icon" />
 
             <TextView
                 android:id="@+id/partResult4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="24sp"
                 android:textSize="24sp" />
 
         </LinearLayout>
@@ -364,10 +398,20 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <ImageButton
+                android:id="@+id/partResult5TrashBin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:onClick="onCancelLastMoveClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/trash_bin_icon" />
+
             <TextView
                 android:id="@+id/partResult5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="24sp"
                 android:textSize="24sp" />
 
         </LinearLayout>

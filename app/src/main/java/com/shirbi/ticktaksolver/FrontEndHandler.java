@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -21,6 +22,7 @@ import java.util.TimerTask;
 public class FrontEndHandler {
     MainActivity m_activity;
 
+    static int partResultTrashBins[] = {R.id.partResult1TrashBin, R.id.partResult2TrashBin, R.id.partResult3TrashBin, R.id.partResult4TrashBin, R.id.partResult5TrashBin};
     static int partResultsTextViews[] = {R.id.partResult1, R.id.partResult2, R.id.partResult3, R.id.partResult4, R.id.partResult5};
     static int tryAloneOperandsButtons[] =
             {R.id.tryAlone1, R.id.tryAlone2, R.id.tryAlone3, R.id.tryAlone4, R.id.tryAlone5, R.id.tryAlone6};
@@ -62,7 +64,6 @@ public class FrontEndHandler {
         }
 
         ((Button) findViewById(R.id.startPlayingButton)).setWidth(width / 2);
-        ((Button) findViewById(R.id.cancelLastMoveButton)).setWidth(width / 2);
         ((Button) findViewById(R.id.newGameButton)).setWidth((width * 2)/3);
         ((Button) findViewById(R.id.cleanButton)).setWidth(width / 3);
         ((Button) findViewById(R.id.calculateButtonOneThread)).setWidth(width / 3);
@@ -89,6 +90,12 @@ public class FrontEndHandler {
         for (int lineNum = 0 ; lineNum < partResultsTextViews.length; lineNum++) {
             TextView textView = (TextView)findViewById(partResultsTextViews[lineNum]);
             m_part_result_timer[lineNum] = new PartResultTimer(activity, textView);
+        }
+
+        for (int id : partResultTrashBins) {
+            View button = (View)findViewById(id);
+            setSquareSizeView(button, width / 10);
+            button.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -125,12 +132,13 @@ public class FrontEndHandler {
                 (TextView) (findViewById(R.id.EquationResult));
         myTextView.setText(R.string.WinMessage);
 
-        Button cancelLastMoveButton = (Button) findViewById(R.id.cancelLastMoveButton);
-        cancelLastMoveButton.setEnabled(false);
-
         for (int id : partResultsTextViews) {
             myTextView = (TextView) findViewById(id);
             myTextView.setTextColor(m_activity.getResources().getColor(R.color.red));
+        }
+
+        for (int id : partResultTrashBins) {
+            findViewById(id).setVisibility(View.INVISIBLE);
         }
 
         Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
@@ -157,7 +165,10 @@ public class FrontEndHandler {
         myTextView.setText(R.string.lose);
 
         setTryAloneFieldsVisibility(false);
-        findViewById(R.id.cancelLastMoveButton).setEnabled(false);
+
+        for (int id : partResultTrashBins) {
+            findViewById(id).setVisibility(View.INVISIBLE);
+        }
     }
 
     private void setTryAloneFieldsVisibility(boolean is_visible) {
@@ -181,10 +192,38 @@ public class FrontEndHandler {
 
         setTryAloneFieldsVisibility(false);
 
-        findViewById(R.id.cancelLastMoveButton).setEnabled(false);
+        for (int id : partResultTrashBins) {
+            findViewById(id).setVisibility(View.INVISIBLE);
+        }
     }
 
     private PartResultTimer m_part_result_timer[];
+
+    public void cancelPartResult(int lineNum) {
+        if (lineNum > 0) {
+            ImageButton prevTrashBin = (ImageButton)findViewById(partResultTrashBins[lineNum - 1]);
+            prevTrashBin.setVisibility(View.VISIBLE);
+        }
+
+        TextView myTextView = (TextView) findViewById(partResultsTextViews[lineNum]);
+        myTextView.setText("");
+
+        ImageButton trashBin = (ImageButton)findViewById(partResultTrashBins[lineNum]);
+        trashBin.setVisibility(View.INVISIBLE);
+    }
+
+    public void showPartResult(int lineNum, String formulaToShow) {
+        if (lineNum > 0) {
+            ImageButton prevTrashBin = (ImageButton)findViewById(partResultTrashBins[lineNum - 1]);
+            prevTrashBin.setVisibility(View.INVISIBLE);
+        }
+
+        TextView myTextView = (TextView) findViewById(partResultsTextViews[lineNum]);
+        myTextView.setText(formulaToShow);
+
+        ImageButton trashBin = (ImageButton)findViewById(partResultTrashBins[lineNum]);
+        trashBin.setVisibility(View.VISIBLE);
+    }
 
     public void animatePartResult(int lineNum) {
         if (lineNum > 0) {

@@ -221,9 +221,7 @@ public class MainActivity extends Activity {
         String formulaToShow = mSolveAlone.ToString();
         int lineIndex = mSolveAlone.GetLineNumber();
 
-        TextView myTextView = (TextView) findViewById(partResultsTextViews[lineIndex]);
-
-        myTextView.setText(formulaToShow);
+        mFrontEndHandler.showPartResult(lineIndex, formulaToShow);
         mFrontEndHandler.animatePartResult(lineIndex);
 
         if (mSolveAlone.MoveToNextLineIfFinishe()) {
@@ -273,16 +271,13 @@ public class MainActivity extends Activity {
 
     public void onCancelLastMoveClick(View view) {
         // Remove non finished line.
-        TextView myTextView;
-
         if (mSolveAlone == null) {
             return;
         }
 
         mSolveAlone.CancelLastMove();
 
-        myTextView = (TextView) findViewById(partResultsTextViews[mSolveAlone.GetLineNumber()]);
-        myTextView.setText("");
+        mFrontEndHandler.cancelPartResult(mSolveAlone.GetLineNumber());
 
         showLeftOperandsForSolveAlone();
     }
@@ -352,9 +347,6 @@ public class MainActivity extends Activity {
 
         View targetText = findViewById(R.id.target);
         targetText.setEnabled(false);
-
-        Button cancelLastMoveButton = (Button) findViewById(R.id.cancelLastMoveButton);
-        cancelLastMoveButton.setEnabled(true);
 
         mSolveAlone = new SolveAlone(mValues, mTarget);
 
