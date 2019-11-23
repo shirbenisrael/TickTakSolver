@@ -13,11 +13,19 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/levelLayout"
-            android:layout_width="match_parent"
+            android:id="@+id/startPlayLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_gravity="center"
             android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/startPlayingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:onClick="onStartPlayingButtonClick"
+                android:text="@string/StartPlaying" />
 
             <Button
                 android:id="@+id/newGameButton"
@@ -182,23 +190,6 @@
                 android:gravity="center"
                 android:textColor="@color/lime"
                 android:textSize="20dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/startPlayLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/startPlayingButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:onClick="onStartPlayingButtonClick"
-                android:text="@string/StartPlaying" />
 
         </LinearLayout>
 

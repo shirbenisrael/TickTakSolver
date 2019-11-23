@@ -30,7 +30,7 @@ public class FrontEndHandler {
             {R.id.tryAlonePlus, R.id.tryAloneMinus, R.id.tryAloneMult, R.id.tryAloneDiv};
     static TicktackSolver mTicktackSolver;
     int sources[] = {R.id.editText1, R.id.editText2, R.id.editText3, R.id.editText4, R.id.editText5, R.id.editText6};
-    int m_views_to_hide_for_share[] = {R.id.levelLayout, R.id.startPlayLayout, R.id.tryAloneFields,
+    int m_views_to_hide_for_share[] = {R.id.startPlayLayout, R.id.tryAloneFields,
             R.id.bottomButtonsLayout, R.id.shareButton};
 
     private View findViewById(int id) {
@@ -64,7 +64,7 @@ public class FrontEndHandler {
         }
 
         ((Button) findViewById(R.id.startPlayingButton)).setWidth(width / 2);
-        ((Button) findViewById(R.id.newGameButton)).setWidth((width * 2)/3);
+        ((Button) findViewById(R.id.newGameButton)).setWidth(width / 2);
         ((Button) findViewById(R.id.cleanButton)).setWidth(width / 3);
         ((Button) findViewById(R.id.calculateButtonOneThread)).setWidth(width / 3);
         ((Button) findViewById(R.id.settingButton)).setWidth(width / 3);
@@ -399,7 +399,6 @@ public class FrontEndHandler {
                 R.id.calculateButtonOneThread,
                 R.id.cleanButton,
                 R.id.newGameButton,
-                R.id.startPlayingButton,
                 R.id.settingButton,
         };
 

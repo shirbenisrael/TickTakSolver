@@ -14,7 +14,6 @@ import android.os.SystemClock;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.EditText;
@@ -47,7 +46,7 @@ public class MainActivity extends Activity {
     static TicktackSolver mTicktackSolver;
     int sources[] = {R.id.editText1, R.id.editText2, R.id.editText3, R.id.editText4, R.id.editText5, R.id.editText6};
     MainActivity m_activity;
-    int m_views_to_hide_for_share[] = {R.id.levelLayout, R.id.startPlayLayout, R.id.tryAloneFields,
+    int m_views_to_hide_for_share[] = {R.id.startPlayLayout, R.id.tryAloneFields,
             R.id.bottomButtonsLayout, R.id.shareButton};
     private SolveAlone mSolveAlone;
     private int[] mValues;

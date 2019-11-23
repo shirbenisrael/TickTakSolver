@@ -46,6 +46,6 @@
     <string name="lose">הפסדת...</string>
     <string name="permission_denied">הרשאה נדחתה!</string>
     <string name="new_game">משחק חדש</string>
-    <string name="StartPlaying">התחלת משחק</string>
+    <string name="StartPlaying">התחל</string>
 
 </resources>

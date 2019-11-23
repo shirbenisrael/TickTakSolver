@@ -10,7 +10,7 @@
     <string name="Minus">-</string>
     <string name="Mult">*</string>
     <string name="Div">/</string>
-    <string name="StartPlaying">Start Playing</string>
+    <string name="StartPlaying">Start</string>
     <string name="CancelLastMove">Cancel last move</string>
     <string name="TargetNumber">Target number</string>
     <string name="SourceNumber">Source number</string>
