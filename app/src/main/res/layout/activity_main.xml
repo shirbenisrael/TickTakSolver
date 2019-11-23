@@ -64,9 +64,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:enabled="false"
                         android:hint="@string/SourceNumber"
                         android:inputType="number"
-                        android:enabled="false"
                         android:nextFocusDown="@+id/editText2"></EditText>
 
                     <EditText
@@ -74,9 +74,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:enabled="false"
                         android:hint="@string/SourceNumber"
                         android:inputType="number"
-                        android:enabled="false"
                         android:nextFocusDown="@+id/editText3"></EditText>
 
                     <EditText
@@ -84,9 +84,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:enabled="false"
                         android:hint="@string/SourceNumber"
                         android:inputType="number"
-                        android:enabled="false"
                         android:nextFocusDown="@+id/editText4"></EditText>
                 </LinearLayout>
 
@@ -100,9 +100,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:enabled="false"
                         android:hint="@string/SourceNumber"
                         android:inputType="number"
-                        android:enabled="false"
                         android:nextFocusDown="@+id/editText5"></EditText>
 
                     <EditText
@@ -110,9 +110,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:enabled="false"
                         android:hint="@string/SourceNumber"
                         android:inputType="number"
-                        android:enabled="false"
                         android:nextFocusDown="@+id/editText6"></EditText>
 
                     <EditText
@@ -120,9 +120,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:enabled="false"
                         android:hint="@string/SourceNumber"
                         android:inputType="number"
-                        android:enabled="false"
                         android:nextFocusDown="@+id/target"></EditText>
                 </LinearLayout>
             </LinearLayout>
@@ -137,49 +137,49 @@
 
             <ImageView
                 android:id="@+id/target_icon"
-                android:src="@drawable/target_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:src="@drawable/target_icon" />
 
             <EditText
                 android:id="@+id/target"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="12"
-                android:inputType="number"
                 android:enabled="false"
+                android:inputType="number"
                 android:textColor="@color/lime"
                 android:textSize="20dp" />
 
             <ImageView
                 android:id="@+id/steps_icon"
-                android:src="@drawable/steps_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:src="@drawable/steps_icon" />
 
             <EditText
                 android:id="@+id/playerCalcCounter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:enabled="false"
                 android:focusable="false"
+                android:gravity="center"
                 android:textColor="@color/lime"
                 android:textSize="20dp" />
 
             <ImageView
                 android:id="@+id/best_result_icon"
-                android:src="@drawable/best_result_icon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:src="@drawable/best_result_icon" />
 
             <EditText
                 android:id="@+id/bestResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:enabled="false"
                 android:focusable="false"
+                android:gravity="center"
                 android:textColor="@color/lime"
                 android:textSize="20dp" />
 
