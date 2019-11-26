@@ -33,6 +33,8 @@ public class FrontEndHandler {
     int m_views_to_hide_for_share[] = {R.id.startPlayLayout, R.id.tryAloneFields,
             R.id.bottomButtonsLayout, R.id.shareButton};
 
+    private WinReward m_winReward;
+
     private View findViewById(int id) {
         return m_activity.findViewById(id);
     }
@@ -57,6 +59,7 @@ public class FrontEndHandler {
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
+        int height = size.y;
 
         for (int source : sources) {
             EditText editText = (EditText)findViewById(source);
@@ -97,6 +100,12 @@ public class FrontEndHandler {
             setSquareSizeView(button, width / 10);
             button.setVisibility(View.INVISIBLE);
         }
+
+        m_winReward = new WinReward(m_activity,
+                (ViewGroup)findViewById(R.id.fullWindowRelativeLayout),
+                width / 2,
+                height /2,
+                width / 10);
     }
 
     public void showLeftOperandsForSolveAlone(String[] buttonStrings) {
@@ -146,6 +155,8 @@ public class FrontEndHandler {
 
         View shareButton = (View) findViewById(R.id.shareButton);
         shareButton.setVisibility(View.VISIBLE);
+
+        m_winReward.Inflate();
     }
 
     public void showLoseMessage(String[] strArray) {
