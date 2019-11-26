@@ -114,6 +114,11 @@ public class MainActivity extends Activity {
 
                 PlaySound(R.raw.win);
             }
+        } else {
+            if (mSolveAlone.IsLastPartResultMatchTarget()) {
+                Toast.makeText(this,
+                        getString(R.string.use_all_numbers), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -278,7 +283,11 @@ public class MainActivity extends Activity {
 
         mFrontEndHandler.cancelPartResult(mSolveAlone.GetLineNumber());
 
-        showLeftOperandsForSolveAlone();
+        String[] buttonStrings = mSolveAlone.GetButtonToShows();
+
+        mFrontEndHandler.showLeftOperandsForSolveAlone(buttonStrings);
+
+        setTryAloneFieldsVisibility(true);
     }
 
     private void sendWinMessageToOtherPlayer() {

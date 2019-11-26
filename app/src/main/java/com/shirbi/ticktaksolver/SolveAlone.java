@@ -6,6 +6,7 @@ public class SolveAlone {
 	int mTarget;
 	Rational mBestResult;
 	Rational mBestDiff;
+	Rational mLastPartResult;
 
 	private enum State
 	{
@@ -69,6 +70,7 @@ public class SolveAlone {
 		
 		TokenOperand newOperand = new TokenOperand(0);
 		newOperand.mValue = mSelectedtokenOperator.Calculate( firstTokeOperand, secondTokeOperand);
+		mLastPartResult = newOperand.GetCalculatedValue();
 		
 		for (int i = 0 ; i < mValues.length ; i++)
 		{
@@ -100,6 +102,10 @@ public class SolveAlone {
 		return new Rational(mBestResult);
 	}
 	
+	public boolean IsLastPartResultMatchTarget() {
+		return  mLastPartResult.Equals(mTarget);
+	}
+
 	public boolean MoveToNextLineIfFinishe()
 	{
 		if ( mState == State.SECOND_OPERAND_SELECTED )

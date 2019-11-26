@@ -47,5 +47,6 @@
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="enable_sounds">Enable Sounds</string>
+    <string name="use_all_numbers">You need to use all numbers</string>
 
 </resources>

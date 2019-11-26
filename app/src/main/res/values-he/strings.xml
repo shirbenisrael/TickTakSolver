@@ -47,5 +47,6 @@
     <string name="permission_denied">הרשאה נדחתה!</string>
     <string name="new_game">משחק חדש</string>
     <string name="StartPlaying">התחל</string>
+    <string name="use_all_numbers">עליך להשתמש בכל המספרים</string>
 
 </resources>
