@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="bottom"
+    android:gravity="top"
     android:orientation="vertical"
     android:visibility="invisible"
     android:layout_width="match_parent"
