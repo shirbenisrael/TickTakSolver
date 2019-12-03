@@ -116,8 +116,7 @@ public class MainActivity extends Activity {
             }
         } else {
             if (mSolveAlone.IsLastPartResultMatchTarget()) {
-                Toast.makeText(this,
-                        getString(R.string.use_all_numbers), Toast.LENGTH_SHORT).show();
+                mFrontEndHandler.ShowToast(R.string.use_all_numbers);
             }
         }
     }

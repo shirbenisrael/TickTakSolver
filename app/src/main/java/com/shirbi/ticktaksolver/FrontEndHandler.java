@@ -15,9 +15,12 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static android.view.Gravity.CENTER;
 
 public class FrontEndHandler {
     MainActivity m_activity;
@@ -134,6 +137,19 @@ public class FrontEndHandler {
             textView.setFontFeatureSettings("");
         }
         textView.setText(bestResultStr);
+    }
+
+    public void ShowToast(int string_id) {
+        Toast toast = Toast.makeText(m_activity, m_activity.getString(string_id), Toast.LENGTH_LONG);
+        toast.setGravity(CENTER, 0, 0);
+
+        ViewGroup group = (ViewGroup) toast.getView();
+
+        TextView messageTextView = (TextView) group.getChildAt(0);
+        messageTextView.setTextSize(20);
+        messageTextView.setGravity(CENTER);
+
+        toast.show();
     }
 
     public void showWinMessage() {
