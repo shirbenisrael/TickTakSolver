@@ -38,6 +38,8 @@ public class MainActivity extends Activity {
     // Intent request codes
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
+    private static final int REQUEST_DISCOVERABLE = 3;
+
     static int partResultsTextViews[] = {R.id.partResult1, R.id.partResult2, R.id.partResult3, R.id.partResult4, R.id.partResult5};
     static int tryAloneOperandsButtons[] =
             {R.id.tryAlone1, R.id.tryAlone2, R.id.tryAlone3, R.id.tryAlone4, R.id.tryAlone5, R.id.tryAlone6};
@@ -519,16 +521,16 @@ public class MainActivity extends Activity {
     }
 
     private void ensureDiscoverable() {
-        if (mChatService == null) {
-            setupChat();
-            mChatService.start();
-        }
-
         if (mBluetoothAdapter.getScanMode() !=
                 BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
             Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
             discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-            startActivity(discoverableIntent);
+            startActivityForResult(discoverableIntent, REQUEST_DISCOVERABLE);
+        } else {
+            if (mChatService == null) {
+                setupChat();
+                mChatService.start();
+            }
         }
     }
 
@@ -672,6 +674,19 @@ public class MainActivity extends Activity {
                     // User did not enable Bluetooth or an error occured
                     Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case REQUEST_DISCOVERABLE:
+                if (resultCode != Activity.RESULT_CANCELED) {
+                    // Bluetooth is now enabled, so set up a chat session
+                    if (mChatService == null) {
+                        setupChat();
+                        mChatService.start();
+                    }
+                } else {
+                    // User did not enable Bluetooth or an error occured
+                    Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
     }
 
