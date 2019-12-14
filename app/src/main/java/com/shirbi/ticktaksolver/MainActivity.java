@@ -536,9 +536,31 @@ public class MainActivity extends Activity {
         ensureDiscoverable();
     }
 
-    public void disconnect(View view) {
-        // todo:
-        // set disconnect. Copy from DownFall.
+    public void onDisconnectClick(View view) {
+        disconnect(true);
+    }
+
+    private void disconnect(boolean send_message) {
+        if (!mTwoPlayerGame) {
+            return;
+        }
+
+        if (mChatService != null) {
+
+            if (send_message) {
+                String message = String.valueOf(BLUETOOTH_MESSAGES.DISCONNECT);
+                sendMessage(message);
+            }
+
+            mChatService.stop();
+            mChatService = null;
+        }
+
+        if (mBluetoothAdapter.isEnabled()) {
+            mBluetoothAdapter.disable();
+        }
+
+        mTwoPlayerGame = false;
     }
 
     private void readInputsFromSecondPlayer( int intArray[]) {
@@ -581,6 +603,9 @@ public class MainActivity extends Activity {
                 showLoseMessage(strArray);
                 break;
             case BLUETOOTH_MESSAGES.GET_NUMBERS:
+                break;
+            case BLUETOOTH_MESSAGES.DISCONNECT:
+                disconnect(false);
                 break;
         }
     }
@@ -798,6 +823,7 @@ public class MainActivity extends Activity {
         static final int START_GAME = 0;
         static final int END_GAME = 1;
         static final int GET_NUMBERS = 2;
+        static final int DISCONNECT = 3;
     }
 
 }
