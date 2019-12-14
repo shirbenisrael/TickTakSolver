@@ -519,6 +519,11 @@ public class MainActivity extends Activity {
     }
 
     private void ensureDiscoverable() {
+        if (mChatService == null) {
+            setupChat();
+            mChatService.start();
+        }
+
         if (mBluetoothAdapter.getScanMode() !=
                 BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
             Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
